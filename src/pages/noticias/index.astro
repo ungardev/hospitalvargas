@@ -1,0 +1,49 @@
+---
+import Layout from '@layouts/Layout.astro';
+import InnerHero from '@components/sections/InnerHero.astro';
+import Eyebrow from '@components/ui/Eyebrow.astro';
+import { newsItems, newsCategories } from '@data/news';
+
+const heroContent = {
+    title: 'Noticias',
+    description: 'Eventos y información de interés'
+};
+---
+
+<Layout title="Noticias | Hospital José María Vargas" description="Noticias y eventos del Hospital José María Vargas">
+    <InnerHero content={heroContent} />
+    
+    <section class="py-base bg-background">
+        <div class="site-container px-4">
+            <div class="text-center mb-8">
+                <Eyebrow text="NOVEDADES" background="base" />
+                <h2 class="text-h2 mb-4">Noticias y Eventos</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {newsItems.map(news => (
+                    <article class="rounded-lg border border-black overflow-hidden bg-background card-interactive">
+                        <div class="relative h-48 overflow-hidden">
+                            <img 
+                                src="/images/equipo-medico.jpg" 
+                                alt={news.title}
+                                class="w-full h-full object-cover"
+                                loading="lazy"
+                            />
+                            <div class="absolute top-2 right-2">
+                                <span class="px-2 py-1 rounded text-xs bg-white/90 text-body-base font-medium">
+                                    {news.category}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-sm text-primary font-medium">{news.date}</span>
+                            <h3 class="text-h5 mt-2 mb-3">{news.title}</h3>
+                            <p class="text-body-base text-sm opacity-90 line-clamp-3">{news.excerpt}</p>
+                        </div>
+                    </article>
+                ))}
+            </div>
+        </div>
+    </section>
+</Layout>

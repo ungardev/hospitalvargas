@@ -1,0 +1,80 @@
+---
+import Layout from '@layouts/Layout.astro';
+import InnerHero from '@components/sections/InnerHero.astro';
+import Eyebrow from '@components/ui/Eyebrow.astro';
+import { hospitalStatistics, bulletins, performanceIndicators } from '@data/statistics';
+
+const heroContent = {
+    title: 'Estadísticas',
+    description: 'Indicadores de gestión y salud pública'
+};
+---
+
+<Layout title="Estadísticas | Hospital José María Vargas" description="Estadísticas e indicadores del Hospital José María Vargas">
+    <InnerHero content={heroContent} />
+    
+    <section class="py-base bg-background">
+        <div class="site-container px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <Eyebrow text="INDICADORES" background="base" />
+                    <h2 class="text-h2 mb-4">Indicadores de Salud</h2>
+                    <p class="text-body-base">
+                        Toda actividad humana necesita ser medida y comparada en función de su estructura, 
+                        proceso y resultado. Los indicadores nos permiten conocer los resultados disponibles 
+                        para fijar propósitos, metas y objetivos.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                    {hospitalStatistics.map(stat => (
+                        <div class="p-6 rounded-lg border border-black bg-background-light">
+                            <h3 class="text-h4 mb-2">{stat.title}</h3>
+                            <p class="text-primary text-h3 font-bold">{stat.value}</p>
+                            <p class="text-body-base text-sm mt-2 opacity-90">{stat.description}</p>
+                        </div>
+                    ))}
+                </div>
+
+                <h3 class="text-h3 mb-6">Indicadores de Gestión</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+                    <div class="p-4 rounded-lg border border-black bg-background">
+                        <span class="text-body-base text-sm">Tiempo de Respuesta Emergencia</span>
+                        <p class="text-h4 text-primary font-bold">{performanceIndicators.emergencyResponse}</p>
+                    </div>
+                    <div class="p-4 rounded-lg border border-black bg-background">
+                        <span class="text-body-base text-sm">Resultados de Laboratorio</span>
+                        <p class="text-h4 text-primary font-bold">{performanceIndicators.labResults}</p>
+                    </div>
+                    <div class="p-4 rounded-lg border border-black bg-background">
+                        <span class="text-body-base text-sm">Resultados de Imagen</span>
+                        <p class="text-h4 text-primary font-bold">{performanceIndicators.imagingResults}</p>
+                    </div>
+                    <div class="p-4 rounded-lg border border-black bg-background">
+                        <span class="text-body-base text-sm">Ocupación de Camas</span>
+                        <p class="text-h4 text-primary font-bold">{performanceIndicators.bedOccupancy}</p>
+                    </div>
+                    <div class="p-4 rounded-lg border border-black bg-background">
+                        <span class="text-body-base text-sm">Satisfacción del Paciente</span>
+                        <p class="text-h4 text-primary font-bold">{performanceIndicators.patientSatisfaction}</p>
+                    </div>
+                </div>
+
+                <h3 class="text-h3 mb-6">Boletines y Reportes</h3>
+                <div class="space-y-4">
+                    {bulletins.map(bulletin => (
+                        <a 
+                            href={bulletin.url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            class="flex items-center gap-3 p-4 rounded-lg border border-black bg-background hover:bg-primary/5 transition-colors"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                            <span class="text-body-base hover:text-primary">{bulletin.name}</span>
+                        </a>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>

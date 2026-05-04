@@ -1,101 +1,83 @@
 ---
-import { footerMenu, legalMenu } from '@data/menu';
 import Logo from '@components/Logo.astro';
-import Button from '@components/ui/Button.astro';
-import { siteConfig } from '@data/config';
+import { config } from '@data/config';
 
-interface ButtonProps {
-  text: string;
-  link: string;
-  target?: string;
-}
-
-interface Props {
-  footerCta?: {
-    title: string;
-    description: string;
-    hideCta: boolean;
-    button: ButtonProps;
-  };
-}
-
-const { footerCta } = Astro.props;
-
-const defaultCta = {
-  title: "Ready to get started?",
-  description: "Join us today and transform your digital presence with our innovative solutions.",
-  hideCta: false,
-  button: {
-    text: "Contact Us",
-    link: "/contact",
-    target: "_self"
-  }
-};
-
-const cta = footerCta || defaultCta;
+const siteInfo = config.siteInfo;
 const currentYear = new Date().getFullYear();
+
+const mainLinks = [
+    { name: 'Historia', link: '/historia' },
+    { name: 'Servicios', link: '/servicios' },
+    { name: 'Postgrado', link: '/postgrado' }
+];
+
+const additionalLinks = [
+    { name: 'Banco de Sangre', link: '/banco-de-sangre' },
+    { name: 'Pregrado', link: '/pregrado' },
+    { name: 'Estadísticas', link: '/estadisticas' },
+    { name: 'Noticias', link: '/noticias' }
+];
+
+const contactInfo = {
+    address: siteInfo.address,
+    phone: siteInfo.phone,
+    email: siteInfo.email
+};
 ---
 
-<footer class={`bg-black text-white pb-small ${cta.hideCta ? 'pt-large' : ''}`}>
-  <div class="site-container mx-auto px-4">
-    {!cta.hideCta && (
-      <div class="text-center border-b border-background-light mb-12 py-small">
-        <h2 class="text-3xl font-bold mb-4" data-aos="fade-up">{cta.title}</h2>
-        <p class="text-white mb-6 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-          {cta.description}
-        </p>
-        <Button 
-          href={cta.button.link} 
-          variant="ghostLight"
-          size="lg"
-          data-aos="fade-up"
-          data-aos-delay="200"
-          {...(cta.button.target && { target: cta.button.target })}
-        >
-          {cta.button.text}
-        </Button>
-      </div>
-    )}
+<footer class="bg-black text-white pb-small pt-large">
+    <div class="site-container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-white/20">
+            <div>
+                <Logo variant="footer" />
+                <p class="mt-4 text-white text-sm opacity-80 leading-relaxed">
+                    Más de 134 años al servicio de la salud de los venezolanos. 
+                    Segundo centro hospitalario más importante del país.
+                </p>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-semibold mb-4 text-white">Navegación</h3>
+                <nav>
+                    <ul class="space-y-3">
+                        {mainLinks.map(item => (
+                            <li><a href={item.link} class="text-sm text-white/70 hover:text-white hover:underline transition-colors">{item.name}</a></li>
+                        ))}
+                    </ul>
+                </nav>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-semibold mb-4 text-white">Más Servicios</h3>
+                <nav>
+                    <ul class="space-y-3">
+                        {additionalLinks.map(item => (
+                            <li><a href={item.link} class="text-sm text-white/70 hover:text-white hover:underline transition-colors">{item.name}</a></li>
+                        ))}
+                    </ul>
+                </nav>
+            </div>
+        </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-background-light">
-      <div class="col-span-1">
-        <Logo variant="footer" />
-        <p class="mt-4 text-white">
-          Empowering your digital journey with innovative solutions.
-        </p>
-      </div>
-      
-      <div class="col-span-1">
-        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-        <nav>
-          <ul class="space-y-2">
-            {footerMenu.map(item => (
-              <li><a href={item.link} class="text-body-dark hover:text-white transition-colors">{item.name}</a></li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+        <div class="mt-8 flex flex-col md:flex-row justify-between items-start gap-6">
+            <div class="flex flex-col gap-3 text-sm text-white/60">
+                <div class="flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span>{contactInfo.address}</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <a href={`tel:${contactInfo.phone}`} class="hover:text-white transition-colors">{contactInfo.phone}</a>
+                </div>
+                <div class="flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    <a href={`mailto:${contactInfo.email}`} class="hover:text-white transition-colors">{contactInfo.email}</a>
+                </div>
+            </div>
+            
+            <div class="text-sm text-white/50">
+                © {currentYear} {siteInfo.name}. Todos los derechos reservados.
+            </div>
+        </div>
     </div>
-
-    <div class="mt-8 flex flex-col md:flex-row justify-between items-center">
-      <div class="text-body-dark text-sm">
-        © {currentYear} {siteConfig.companyName}. All rights reserved.
-      </div>
-      
-      <nav class="mt-4 md:mt-0">
-        <ul class="flex flex-wrap gap-6">
-          {legalMenu.map(item => (
-            <li>
-              <a 
-                href={item.link} 
-                class="text-sm text-body-dark hover:text-white transition-colors"
-              >
-                {item.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </div>
-  </div>
 </footer>

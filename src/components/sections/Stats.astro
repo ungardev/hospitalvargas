@@ -1,9 +1,32 @@
 ---
-import type { Stat } from '@data/stats';
 import Button from '@components/ui/Button.astro';
 import Eyebrow from '@components/ui/Eyebrow.astro';
 import { getBackgroundColor, getTextColor, getPaddingClass } from '@utils/styleUtils';
 import type { ThemeColor, PaddingSize } from '@utils/styleUtils';
+
+export interface Stat {
+    value: string | number;
+    label: string;
+    prefix?: string;
+    suffix?: string;
+    iconName?: string;
+}
+
+const statIcons: Record<string, string> = {
+    'history': 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+    'medical': 'M19.5 12.572l-7.097 4.27-1.99-2.14L6 11.572l7.097-4.27 1.99 2.14 4.413 1.43zM12 21.5c-4.5-2.5-8-6.5-8-11.5 0-1.87.63-3.55 1.69-4.89C7.17 3.57 9.07 3 11 3c3.87 0 7 3.13 7 7 0 5-3.5 9-8 11.5z',
+    'graduation': 'M22 10v6M2 10l10-5 10 5-10 5z M6 12v5c3 3 9 3 12 0v-5',
+    'users': 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M23 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75',
+};
+
+const getStatIcon = (label: string): string => {
+    const lowerLabel = label.toLowerCase();
+    if (lowerLabel.includes('historia') || lowerLabel.includes('año')) return statIcons['history'];
+    if (lowerLabel.includes('especialidad') || lowerLabel.includes('programa')) return statIcons['medical'];
+    if (lowerLabel.includes('poblaci')) return statIcons['users'];
+    if (lowerLabel.includes('postgrado') || lowerLabel.includes('formaci')) return statIcons['graduation'];
+    return statIcons['medical'];
+};
 
 export interface Props {
     content: {
@@ -61,12 +84,12 @@ const paddingClass = getPaddingClass({ padding, paddingTop, paddingBottom });
                     />
                 )}
                 {title && (
-                    <h2 class:list={[textColor]} data-aos="fade-up">
+                    <h2 class:list={[textColor]}>
                         {title}
                     </h2>
                 )}
                 {description && (
-                    <p class:list={["mt-4", textColor, "opacity-90"]} data-aos="fade-up" data-aos-delay="100">
+                    <p class:list={["mt-4", textColor, "opacity-90"]}>
                         {description}
                     </p>
                 )}
@@ -77,7 +100,7 @@ const paddingClass = getPaddingClass({ padding, paddingTop, paddingBottom });
             variant === 'side-by-side' ? 'grid md:grid-cols-2 gap-12 items-center' : '',
         ]}>
             {variant === 'side-by-side' && contentContent && (
-                <div class="content-section" data-aos="fade-right">
+                <div class="content-section">
                     {eyebrow && (
                         <Eyebrow 
                             text={eyebrow} 
@@ -102,18 +125,17 @@ const paddingClass = getPaddingClass({ padding, paddingTop, paddingBottom });
             <div class:list={[
                 variant === 'default' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8' : 'grid grid-cols-2 gap-8',
             ]}>
-                {stats.map((stat, index) => (
-                    <div 
-                        class="text-center"
-                        data-aos={variant === 'side-by-side' ? 'fade-left' : 'fade-up'}
-                        data-aos-delay={index * 100}
-                    >
-                        <div class:list={["text-4xl font-bold mb-2", textColor]}>
-                            <span class="stat-number" data-target={stat.value}>
-                                {stat.prefix || ''}{0}{stat.suffix || ''}
-                            </span>
+                {stats.map((stat) => (
+                    <div class="text-center group">
+                        <div class:list={["inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 transition-transform duration-300 group-hover:scale-110", background === 'dark' ? 'bg-white/10' : 'bg-primary/10']}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class:list={[textColor]}>
+                                <path d={getStatIcon(stat.label)} />
+                            </svg>
                         </div>
-                        <p class:list={["text-lg", textColor, "opacity-90"]}>
+                        <div class:list={["text-5xl font-bold mb-2 tracking-tight", textColor]}>
+                            <span>{stat.prefix || ''}{stat.value}{stat.suffix || ''}</span>
+                        </div>
+                        <p class:list={["text-base font-medium", textColor, "opacity-80"]}>
                             {stat.label}
                         </p>
                     </div>
@@ -122,44 +144,3 @@ const paddingClass = getPaddingClass({ padding, paddingTop, paddingBottom });
         </div>
     </div>
 </section>
-
-<script>
-    function animateStats() {
-        const stats = document.querySelectorAll('.stat-number');
-        
-        stats.forEach(stat => {
-            const target = parseInt(stat.getAttribute('data-target') || '0');
-            const prefix = stat.textContent?.match(/^[^0-9]*/)?.[0] || '';
-            const suffix = stat.textContent?.match(/[^0-9]*$/)?.[0] || '';
-            let current = 0;
-            const increment = target / 50; // Adjust for animation speed
-            
-            const updateCounter = () => {
-                if (current < target) {
-                    current += increment;
-                    if (current > target) current = target;
-                    stat.textContent = `${prefix}${Math.floor(current)}${suffix}`;
-                    requestAnimationFrame(updateCounter);
-                }
-            };
-            
-            updateCounter();
-        });
-    }
-
-    // Create an Intersection Observer
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateStats();
-                observer.disconnect(); // Only animate once
-            }
-        });
-    });
-
-    // Observe the stats section
-    const statsSection = document.querySelector('.stat-number');
-    if (statsSection) {
-        observer.observe(statsSection);
-    }
-</script>

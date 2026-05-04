@@ -1,0 +1,101 @@
+---
+import Layout from '@layouts/Layout.astro';
+import InnerHero from '@components/sections/InnerHero.astro';
+import Eyebrow from '@components/ui/Eyebrow.astro';
+import { services, serviceCategories } from '@data/services';
+
+const heroContent = {
+    title: 'Servicios Médicos',
+    description: '35+ especialidades médicas al servicio de los venezolanos'
+};
+
+const iconPaths: Record<string, string> = {
+  'heart-pulse': '<path d="M19.5 12.572l-7.097 4.27-1.99-2.14L6 11.572l7.097-4.27 1.99 2.14 4.413 1.43zM12 21.5c-4.5-2.5-8-6.5-8-11.5 0-1.87.63-3.55 1.69-4.89C7.17 3.57 9.07 3 11 3c3.87 0 7 3.13 7 7 0 5-3.5 9-8 11.5z"/><path d="M12 21.5c3.87 0 7-3.13 7-7 0-1.87-.63-3.55-1.69-4.89"/><path d="M12 21.5c-3.87 0-7-3.13-7-7"/>',
+  'stethoscope': '<path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/>',
+  'activity': '<path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/><path d="M22 12c0 1.5-1.5 3-3 3s-3-1.5-3-3 1.5-3 3-3 3 1.5 3 3z"/>',
+  'graduation-cap': '<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+  'flask-conical': '<path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/>',
+  'microscope': '<path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0-12-7"/><path d="M14 2v4"/><path d="M10 2v4"/><path d="M10 6h4"/>',
+};
+
+const groupedServices = serviceCategories.map(cat => ({
+    category: cat,
+    services: services.filter(s => s.category === cat)
+}));
+---
+
+<Layout title="Servicios | Hospital José María Vargas" description="35+ especialidades médicas del Hospital José María Vargas">
+    <InnerHero content={heroContent} />
+    
+    <section class="py-base bg-background">
+        <div class="site-container px-4">
+            <div class="text-center mb-8">
+                <Eyebrow text="ESPECIALIDADES" background="base" />
+                <h2 class="text-h2">Nuestros Servicios</h2>
+                <p class="text-body-base mt-4 max-w-2xl mx-auto">
+                    El Hospital Vargas ofrece más de 35 especialidades médicas con equipamiento de alta tecnología,
+                    incluyendo laparoscopia, broncofibroscopía, ecodoppler, ecocardiograma y diagnóstico por imagen avanzado.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap gap-4 justify-center mb-12">
+                <button 
+                    class="filter-btn active px-4 py-2 rounded-md border border-primary bg-primary text-white transition-default"
+                    data-category="all"
+                >
+                    Todas
+                </button>
+                {serviceCategories.map(cat => (
+                    <button 
+                        class="filter-btn px-4 py-2 rounded-md border border-black bg-white text-body-base hover:bg-primary hover:text-white transition-default"
+                        data-category={cat}
+                    >
+                        {cat}
+                    </button>
+                ))}
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="services-grid">
+                {services.map(service => (
+                    <div 
+                        class="service-card p-6 rounded-lg border border-black bg-background/90 card-interactive"
+                        data-category={service.category}
+                    >
+                        <div class="w-12 h-12 flex items-center justify-center rounded-lg mb-4 bg-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white" set:html={iconPaths[service.iconName] || iconPaths['activity']} />
+                        </div>
+                        <h3 class="text-h4 mb-2">{service.name}</h3>
+                        <span class="text-sm text-primary font-medium">{service.category}</span>
+                        <p class="text-body-base text-sm mt-2 opacity-90">{service.description}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const serviceCards = document.querySelectorAll('.service-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const category = btn.getAttribute('data-category');
+            
+            filterBtns.forEach(b => {
+                b.classList.remove('active', 'bg-primary', 'text-white');
+                b.classList.add('bg-white', 'text-body-base');
+            });
+            btn.classList.add('active', 'bg-primary', 'text-white');
+            btn.classList.remove('bg-white', 'text-body-base');
+
+            serviceCards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    });
+</script>

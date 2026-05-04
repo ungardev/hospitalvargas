@@ -1,27 +1,27 @@
-// src/data/menu.ts
-
 export const headerMenu = [
-    { name: 'Theme Info', link: '/theme-info' },
-    { name: 'Our Team', link: '/team' },
-    { name: 'Blog', link: '/blog' },
-    { name: 'Style-Guide', link: '/style-guide', showArrow: false,
+    { name: 'Inicio', link: '/' },
+    { name: 'Historia', link: '/historia' },
+    { 
+        name: 'Servicios', 
+        link: '/servicios',
         children: [
-            { name: 'Typography', link: '/style-guide#typography' },
-            { name: 'Colors', link: '/style-guide#colors' },
-            { name: 'Links', link: '/style-guide#links' },
-            { name: 'Buttons', link: '/style-guide#buttons' },
-            { name: 'Forms', link: '/style-guide#forms' },
-            { name: 'Lists', link: '/style-guide#lists' },
+            { name: 'Servicios Médicos', link: '/servicios' },
+            { name: 'Banco de Sangre', link: '/banco-de-sangre' },
+            { name: 'Estadísticas', link: '/estadisticas' }
         ]
-    }
+    },
+    { name: 'Pregrado', link: '/pregrado' },
+    { name: 'Postgrado', link: '/postgrado' },
+    { name: 'Noticias', link: '/noticias' }
 ];
 
 export const footerMenu = [
-    { name: 'Style Guide', link: '/style-guide' },
+    { name: 'Historia', link: '/historia' },
+    { name: 'Servicios', link: '/servicios' },
+    { name: 'Postgrado', link: '/postgrado' },
+    { name: 'Banco de Sangre', link: '/banco-de-sangre' },
+    { name: 'Estadísticas', link: '/estadisticas' },
+    { name: 'Noticias', link: '/noticias' }
 ];
 
-export const legalMenu = [
-    { name: 'Privacy Policy', link: '/legal/privacy-policy' },
-    { name: 'Terms of Service', link: '/legal/terms-of-service' }
-];
-
+export const legalMenu = [];

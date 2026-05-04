@@ -1,0 +1,143 @@
+---
+import Layout from '@layouts/Layout.astro';
+import InnerHero from '@components/sections/InnerHero.astro';
+import Eyebrow from '@components/ui/Eyebrow.astro';
+import { postgradPrograms, classificationLabels, headquartersLabels } from '@data/postgradPrograms';
+
+const heroContent = {
+    title: 'Postgrado',
+    description: '132 programas de especialización, maestría y doctorado'
+};
+
+const allPrograms = postgradPrograms.flatMap(cat => 
+    cat.programs.map(p => ({ ...p, category: cat.name }))
+);
+---
+
+<Layout title="Postgrado | Hospital José María Vargas" description="132 programas de postgrado de la Escuela de Medicina José María Vargas - UCV">
+    <InnerHero content={heroContent} />
+    
+    <section class="py-base bg-background">
+        <div class="site-container px-4">
+            <div class="text-center mb-8">
+                <Eyebrow text="FORMACIÓN AVANZADA" background="base" />
+                <h2 class="text-h2 mb-4">Programas de Postgrado</h2>
+                <p class="text-body-base max-w-2xl mx-auto">
+                    Desde 1941, el Hospital Vargas es pionero en la formación de postgrado en Venezuela. 
+                    Actualmente ofrecemos 132 programas de especialización, maestría y doctorado en 
+                    colaboración con la Universidad Central de Venezuela.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap gap-4 mb-8 justify-center">
+                <select id="category-filter" class="px-4 py-2 rounded-md border border-black bg-white text-body-base">
+                    <option value="">Todas las categorías</option>
+                    {postgradPrograms.map(cat => (
+                        <option value={cat.name}>{cat.name}</option>
+                    ))}
+                </select>
+                
+                <select id="classification-filter" class="px-4 py-2 rounded-md border border-black bg-white text-body-base">
+                    <option value="">Todas las clasificaciones</option>
+                    <option value="ESP">Especialización</option>
+                    <option value="MA">Maestría</option>
+                    <option value="DOC">Doctorado</option>
+                </select>
+                
+                <input 
+                    type="text" 
+                    id="search-filter" 
+                    placeholder="Buscar programa..."
+                    class="px-4 py-2 rounded-md border border-black bg-white text-body-base"
+                />
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-primary text-white">
+                            <th class="p-3 text-left border border-primary">Programa</th>
+                            <th class="p-3 text-center border border-primary">Tipo</th>
+                            <th class="p-3 text-left border border-primary">Sedes</th>
+                            <th class="p-3 text-left border border-primary">Coordinador</th>
+                            <th class="p-3 text-center border border-primary">Teléfono</th>
+                        </tr>
+                    </thead>
+                    <tbody id="programs-table-body">
+                        {postgradPrograms.map(cat => (
+                            <Fragment>
+                                {cat.programs.map((program, idx) => (
+                                    <tr 
+                                        class="program-row bg-background-light hover:bg-primary/5 transition-colors"
+                                        data-category={cat.name}
+                                        data-classification={program.classification}
+                                    >
+                                        <td class="p-3 border border-black/20 font-medium">{program.name}</td>
+                                        <td class="p-3 border border-black/20 text-center">
+                                            <span class="px-2 py-1 rounded text-xs font-medium bg-primary text-white">
+                                                {classificationLabels[program.classification]}
+                                            </span>
+                                        </td>
+                                        <td class="p-3 border border-black/20">
+                                            <div class="flex flex-wrap gap-1">
+                                                {program.headquarters.map(hq => (
+                                                    <span class="px-2 py-1 rounded text-xs bg-secondary/20 text-body-base">
+                                                        {headquartersLabels[hq] || hq}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </td>
+                                        <td class="p-3 border border-black/20 text-sm">{program.coordinator}</td>
+                                        <td class="p-3 border border-black/20 text-sm text-center">{program.phone}</td>
+                                    </tr>
+                                ))}
+                            </Fragment>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            
+            <p class="text-center text-sm text-body-base mt-4">
+                Mostrando <span id="programs-count">{allPrograms.length}</span> programas
+            </p>
+        </div>
+    </section>
+</Layout>
+
+<script>
+    const categoryFilter = document.getElementById('category-filter') as HTMLSelectElement;
+    const classificationFilter = document.getElementById('classification-filter') as HTMLSelectElement;
+    const searchFilter = document.getElementById('search-filter') as HTMLInputElement;
+    const programRows = document.querySelectorAll('.program-row');
+    const programsCount = document.getElementById('programs-count') as HTMLElement;
+
+    function filterPrograms() {
+        const category = categoryFilter.value;
+        const classification = classificationFilter.value;
+        const search = searchFilter.value.toLowerCase();
+        let visibleCount = 0;
+
+        programRows.forEach(row => {
+            const rowCategory = row.getAttribute('data-category');
+            const rowClassification = row.getAttribute('data-classification');
+            const rowText = row.textContent?.toLowerCase() || '';
+
+            const matchesCategory = !category || rowCategory === category;
+            const matchesClassification = !classification || rowClassification === classification;
+            const matchesSearch = !search || rowText.includes(search);
+
+            if (matchesCategory && matchesClassification && matchesSearch) {
+                (row as HTMLElement).style.display = '';
+                visibleCount++;
+            } else {
+                (row as HTMLElement).style.display = 'none';
+            }
+        });
+
+        programsCount.textContent = String(visibleCount);
+    }
+
+    categoryFilter.addEventListener('change', filterPrograms);
+    classificationFilter.addEventListener('change', filterPrograms);
+    searchFilter.addEventListener('input', filterPrograms);
+</script>

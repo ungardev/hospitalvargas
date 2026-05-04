@@ -1,18 +1,15 @@
 ---
 import Button from '@components/ui/Button.astro';
-import { Image } from 'astro:assets';
 
 interface HeroContent {
     title: string;
     description: string;
-        buttons?: {
+    buttons?: {
         text: string;
         link: string;
         variant?: 'primary' | 'secondary' | 'ghostLight' | 'ghostDark';
         target?: string;
     }[];
-    backgroundImage?: string | any; // Using any for now to handle both string paths and imported images
-    overlayOpacity?: number; // Value between 0 and 1
 }
 
 interface Props {
@@ -20,35 +17,22 @@ interface Props {
 }
 
 const { content } = Astro.props;
-const opacity = content.overlayOpacity ?? 1; // Default opacity if not specified
 ---
 
-<section class="header-offset relative">
-    {content.backgroundImage && (
-        <div class="absolute inset-0 left-0 top-0 w-full h-full overflow-hidden">
-            <Image
-                src={content.backgroundImage}
-                alt=""
-                width={1920}
-                height={1080}
-                class="w-full h-full object-cover"
-                quality={70}
-                format="webp"
-                loading="eager"
-                decoding="async"
-            />
-            <div
-                class="hero-background absolute inset-0 left-0 top-0 w-full h-full overflow-hidden"
-                style={`opacity: ${opacity};`}
-            ></div>
-        </div>
-    )}
-
-    <div class="site-container mx-auto px-4 py-large relative z-10 flex flex-col md:items-center md:justify-center md:text-center">
-        <h1 class="text-white text-balance" data-aos="fade-up">{content.title}</h1>
-        <p class="text-white mt-2 text-balance" data-aos="fade-up" data-aos-delay="100">{content.description}</p>
+<section class="header-offset relative min-h-[85vh] flex items-center justify-center">
+    <img 
+        src="/images/fachada-hero.jpg" 
+        alt="Hospital José María Vargas" 
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+    />
+    <div class="absolute inset-0 bg-gradient-to-br from-primary/50 to-primary-dark/70"></div>
+    <div class="site-container mx-auto px-4 relative z-10 flex flex-col md:items-center md:justify-center md:text-center animate-fade-in">
+        <h1 class="text-white text-balance">{content.title}</h1>
+        <p class="text-white mt-4 text-lg md:text-xl text-balance max-w-3xl">{content.description}</p>
         {content.buttons && content.buttons.length > 0 && (
-            <div class="flex flex-wrap gap-4 mt-8" data-aos="fade-up">
+            <div class="flex flex-wrap gap-4 mt-8 justify-center">
                 {content.buttons.map((button) => (
                     <Button
                         href={button.link}

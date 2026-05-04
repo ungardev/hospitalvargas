@@ -6,28 +6,23 @@ export interface Props {
     text: string;
     background?: ThemeColor;
     className?: string;
-    dataAos?: string;
-    dataAosDelay?: string;
 }
 
 const {
     text,
     background = 'base',
-    className = '',
-    dataAos = 'fade-up',
-    dataAosDelay
+    className = ''
 } = Astro.props;
 
 const eyebrowColor = getEyebrowColor(background);
 ---
+
 <div 
     class:list={[
         eyebrowColor, 
         "font-medium mb-4 uppercase tracking-wider text-sm",
         className
-    ]} 
-    data-aos={dataAos}
-    {...dataAosDelay && { 'data-aos-delay': dataAosDelay }}
+    ]}
 >
     {text}
-</div> 
+</div>

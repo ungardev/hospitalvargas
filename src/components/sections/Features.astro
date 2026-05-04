@@ -1,9 +1,19 @@
 ---
-import type { Feature } from '@data/features';
-import Button from '@components/ui/Button.astro';
 import Eyebrow from '@components/ui/Eyebrow.astro';
 import { getPaddingClass, getBackgroundColor, getTextColor } from '@utils/styleUtils';
 import type { PaddingSize, ThemeColor } from '@utils/styleUtils';
+
+const getIconSvg = (iconName: string) => {
+  const icons: Record<string, string> = {
+    'heart-pulse': 'M19.5 12.572l-7.097 4.27-1.99-2.14L6 11.572l7.097-4.27 1.99 2.14 4.413 1.43zM12 21.5c-4.5-2.5-8-6.5-8-11.5 0-1.87.63-3.55 1.69-4.89C7.17 3.57 9.07 3 11 3c3.87 0 7 3.13 7 7 0 5-3.5 9-8 11.5z',
+    'stethoscope': 'M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3 M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4 M20 10',
+    'activity': 'M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2',
+    'graduation-cap': 'M22 10v6M2 10l10-5 10 5-10 5z M6 12v5c3 3 9 3 12 0v-5',
+    'flask-conical': 'M10 2v7.31 M14 9.3V1.99 M8.5 2h7 M14 9.3a6.5 6.5 0 1 1-4 0 M5.52 16h12.96',
+    'microscope': 'M6 18h8 M3 22h18 M14 22a7 7 0 1 0-12-7 M14 2v4 M10 2v4 M10 6h4',
+  };
+  return icons[iconName] || icons['activity'];
+};
 
 export interface Props {
     content: {
@@ -15,7 +25,7 @@ export interface Props {
             link: string;
             variant?: 'primary' | 'secondary' | 'ghostLight' | 'ghostDark';
         };
-        features: Feature[];
+        features: { iconName: string; title: string; description: string }[];
     };
     background?: ThemeColor;
     padding?: PaddingSize;
@@ -54,47 +64,47 @@ const paddingClass = getPaddingClass({
                     />
                 )}
                 {title && (
-                    <h2 class:list={[textColor]} data-aos="fade-up">
+                    <h2 class:list={[textColor]}>
                         {title}
                     </h2>
                 )}
                 {description && (
-                    <p class:list={["mt-4", textColor, "opacity-90"]} data-aos="fade-up" data-aos-delay="100">
+                    <p class:list={["mt-4", textColor, "opacity-90"]}>
                         {description}
                     </p>
                 )}
                 {button && (
-                    <div class="mt-8" data-aos="fade-up" data-aos-delay="200">
-                        <Button
+                    <div class="mt-8">
+                        <a
                             href={button.link}
-                            variant={button.variant || 'primary'}
+                            class:list={[
+                                "inline-flex items-center justify-center rounded-lg px-6 py-3 text-base font-medium transition-colors",
+                                "bg-primary text-white hover:bg-primary-dark",
+                            ]}
                         >
                             {button.text}
-                        </Button>
+                        </a>
                     </div>
                 )}
             </div>
         )}
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-auto-fit gap-8 auto-rows-fr">
-            {features.map((feature, index) => (
+            {features.map((feature) => (
                 <div 
                     class:list={[
-                        "p-6 rounded-lg border border-black",
-                        background === 'dark' ? 'bg-background-base/10' : 'bg-background/90',
+                        "p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300",
+                        background === 'dark' ? 'bg-background-base/10' : 'bg-white',
                         "flex flex-col"
                     ]}
-                    data-aos="fade-up"
-                    data-aos-delay={index * 100}
                 >
                     <div class:list={[
                         "w-12 h-12 flex items-center justify-center rounded-lg mb-4",
                         "bg-primary"
                     ]}>
-                        <feature.icon
-                            size={24}
-                            class="text-white"
-                        />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                          <path d={getIconSvg(feature.iconName)} />
+                        </svg>
                     </div>
                     <h3 class:list={["text-h4 mb-2", textColor]}>
                         {feature.title}

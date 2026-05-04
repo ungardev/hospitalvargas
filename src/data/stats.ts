@@ -1,5 +1,5 @@
 export interface Stat {
-    value: number;
+    value: string | number;
     label: string;
     prefix?: string;
     suffix?: string;
@@ -8,15 +8,6 @@ export interface Stat {
 export interface StatsList {
     id: string;
     stats: Stat[];
-    content?: {
-        title: string;
-        description: string;
-        button?: {
-            text: string;
-            link: string;
-            variant?: 'primary' | 'secondary' | 'ghostLight' | 'ghostDark';
-        };
-    };
 }
 
 export const statsLists: Record<string, StatsList> = {
@@ -24,45 +15,17 @@ export const statsLists: Record<string, StatsList> = {
         id: 'main',
         stats: [
             {
-                value: 10,
-                label: 'Theme Configurations',
+                value: '134',
+                label: 'Años de Historia',
             },
             {
-                value: 11,
-                label: 'Pre-Built Components',
+                value: '35',
+                label: 'Especialidades Médicas',
+                suffix: '+'
             },
             {
-                value: 48,
-                label: 'Team Members',
-            },
-            {
-                value: 500000,
-                label: 'Lines of Code',
-                prefix: '+'
-            }
-        ]
-    },
-    withContent: {
-        id: 'withContent',
-        stats: [
-            {
-                value: 10,
-                label: 'Color Schemes',
-            },
-            {
-                value: 14.53,
-                label: 'Core Bundle Size',
-                suffix: 'KB'
-            },
-            {
-                value: 11,
-                label: 'Pre-Built Components',
-            },
-            {
-                value: 10,
-                label: 'Build Time',
-                prefix: '<100',
-                suffix: 's'
+                value: '132',
+                label: 'Programas de Postgrado',
             }
         ]
     }

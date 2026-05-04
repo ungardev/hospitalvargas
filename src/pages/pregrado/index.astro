@@ -1,0 +1,133 @@
+---
+import Layout from '@layouts/Layout.astro';
+import InnerHero from '@components/sections/InnerHero.astro';
+import Eyebrow from '@components/ui/Eyebrow.astro';
+
+const heroContent = {
+    title: 'Pregrado',
+    description: 'Formación médica de la Universidad Central de Venezuela'
+};
+
+const semesters = [
+    {
+        semester: 1,
+        subjects: [
+            { code: '0021111', name: 'EXTRA ACADÉMICA', credits: 1 },
+            { code: '0031711', name: 'LAB. BIOLOGIA I', credits: 1 },
+            { code: '0031712', name: 'BIOLOGIA I', credits: 2 },
+            { code: '0061013', name: 'COMPRENSIÓN Y EXPRESIÓN LINGUISTICA', credits: 3 },
+            { code: '0081714', name: 'MATEMATICAS I', credits: 4 },
+            { code: '0091012', name: 'DES. DEST. PARA EL APRENDIZAJE', credits: 2 },
+            { code: '0101714', name: 'QUIMICA GENERAL', credits: 4 },
+            { code: '0151111', name: 'EXTRA ACADEMICA DEPORTIVA', credits: 1 }
+        ]
+    },
+    {
+        semester: 2,
+        subjects: [
+            { code: '0031721', name: 'BIOLOGIA II', credits: 3 },
+            { code: '0031722', name: 'LAB. BIOLOGIA II', credits: 1 },
+            { code: '0081724', name: 'MATEMATICAS II', credits: 4 },
+            { code: '0061023', name: 'INGLES', credits: 2 },
+            { code: '0101724', name: 'QUIMICA ORGANICA', credits: 4 },
+            { code: '0101725', name: 'LAB. QUIMICA ORGANICA', credits: 1 }
+        ]
+    },
+    {
+        semester: 3,
+        subjects: [
+            { code: '0032701', name: 'ANATOMIA I', credits: 4 },
+            { code: '0032702', name: 'LAB. ANATOMIA I', credits: 1 },
+            { code: '0032703', name: 'HISTOLOGIA I', credits: 3 },
+            { code: '0032704', name: 'LAB. HISTOLOGIA I', credits: 1 },
+            { code: '0032705', name: 'EMBRIOLOGIA', credits: 2 },
+            { code: '0062703', name: 'FILOSOFIA', credits: 2 },
+            { code: '0082704', name: 'BIOFISICA', credits: 3 }
+        ]
+    },
+    {
+        semester: 4,
+        subjects: [
+            { code: '0032711', name: 'ANATOMIA II', credits: 4 },
+            { code: '0032712', name: 'LAB. ANATOMIA II', credits: 1 },
+            { code: '0032713', name: 'HISTOLOGIA II', credits: 3 },
+            { code: '0032714', name: 'LAB. HISTOLOGIA II', credits: 1 },
+            { code: '0082714', name: 'FISIOLOGIA I', credits: 4 },
+            { code: '0082715', name: 'LAB. FISIOLOGIA I', credits: 1 }
+        ]
+    },
+    {
+        semester: 5,
+        subjects: [
+            { code: '0033701', name: 'ANATOMIA III', credits: 3 },
+            { code: '0033702', name: 'MICROBIOLOGIA I', credits: 3 },
+            { code: '0033703', name: 'LAB. MICROBIOLOGIA I', credits: 1 },
+            { code: '0083704', name: 'FISIOLOGIA II', credits: 4 },
+            { code: '0083705', name: 'LAB. FISIOLOGIA II', credits: 1 },
+            { code: '0083706', name: 'GENETICA', credits: 2 }
+        ]
+    },
+    {
+        semester: 6,
+        subjects: [
+            { code: '0033711', name: 'MICROBIOLOGIA II', credits: 3 },
+            { code: '0033712', name: 'LAB. MICROBIOLOGIA II', credits: 1 },
+            { code: '0033713', name: 'PARASITOLOGIA', credits: 3 },
+            { code: '0033714', name: 'LAB. PARASITOLOGIA', credits: 1 },
+            { code: '0033715', name: 'INMUNOLOGIA', credits: 2 },
+            { code: '0033716', name: 'PATOLOGIA GENERAL I', credits: 4 }
+        ]
+    }
+];
+---
+
+<Layout title="Pregrado | Hospital José María Vargas" description="Programas de pregrado de la Escuela de Medicina José María Vargas - UCV">
+    <InnerHero content={heroContent} />
+    
+    <section class="py-base bg-background">
+        <div class="site-container px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <Eyebrow text="ESCUELA JOSÉ MARÍA VARGAS" background="base" />
+                    <h2 class="text-h2 mb-4">Malla Curricular</h2>
+                    <p class="text-body-base">
+                        La Escuela de Medicina "José María Vargas" forma médicos generales con una formación 
+                        integral, humanista y científica, bajo la guía de la Universidad Central de Venezuela.
+                    </p>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-primary text-white">
+                                <th class="p-3 text-left border border-primary">Semestre</th>
+                                <th class="p-3 text-left border border-primary">Código</th>
+                                <th class="p-3 text-left border border-primary">Asignatura</th>
+                                <th class="p-3 text-center border border-primary">Créditos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {semesters.map((sem, semIndex) => (
+                                <Fragment>
+                                    <tr class="bg-primary-light text-white">
+                                        <td colspan="4" class="p-3 font-medium border border-primary">
+                                            Semestre {sem.semester}
+                                        </td>
+                                    </tr>
+                                    {sem.subjects.map((subj, idx) => (
+                                        <tr class={idx % 2 === 0 ? 'bg-background-light' : 'bg-background'}>
+                                            <td class="p-3 border border-black/20"></td>
+                                            <td class="p-3 border border-black/20 font-mono text-sm">{subj.code}</td>
+                                            <td class="p-3 border border-black/20">{subj.name}</td>
+                                            <td class="p-3 border border-black/20 text-center">{subj.credits}</td>
+                                        </tr>
+                                    ))}
+                                </Fragment>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>

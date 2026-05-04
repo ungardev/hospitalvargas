@@ -3,15 +3,14 @@ import Button from '@components/ui/Button.astro';
 import Eyebrow from '@components/ui/Eyebrow.astro';
 import { getPaddingClass, getBackgroundColor, getTextColor } from '@utils/styleUtils';
 import type { PaddingSize, ThemeColor } from '@utils/styleUtils';
-import { Image } from 'astro:assets';
 
 interface Content {
     eyebrow?: string;
     headline: string;
     subheadline?: string;
     description?: string;
-    image: {
-        src: string | any;
+    image?: {
+        src: string;
         alt?: string;
     };
     buttons?: {
@@ -24,7 +23,6 @@ interface Content {
 
 export interface Props {
     content: Content;
-    // Layout props
     imagePosition?: 'left' | 'right';
     background?: ThemeColor;
     paddingTop?: PaddingSize;
@@ -34,7 +32,6 @@ export interface Props {
 
 const {
     content,
-    // Layout props
     imagePosition = 'right',
     background = 'base',
     paddingTop,
@@ -43,7 +40,7 @@ const {
 } = Astro.props;
 
 const { eyebrow, headline, subheadline, description, image, buttons = [] } = content;
-const { src, alt = '' } = image;
+const hasImage = image?.src;
 
 const paddingClass = getPaddingClass({ padding, paddingTop, paddingBottom });
 const bgColor = getBackgroundColor(background);
@@ -55,83 +52,62 @@ const textColor = getTextColor(background);
         <div
             class:list={[
                 'grid gap-16 items-center',
-                'md:grid-cols-2',
-                imagePosition === 'left' ? 'md:grid-cols-[1fr_1fr]' : '',
+                hasImage ? 'md:grid-cols-2' : 'md:grid-cols-1',
             ]}
         >
-            {/* Image Side */}
-            {
-                imagePosition === 'left' && (
-                    <div class="relative aspect-[4/3] overflow-hidden rounded-[var(--border-radius-base)] border border-black">
-                        <Image
-                            {src}
-                            {alt}
-                            width={800}
-                            height={600}
-                            class="w-full h-full object-cover"
-                            quality={80}
-                            format="webp"
-                        />
-                    </div>
-                )
-            }
+            {/* Image Side - only render if image exists */}
+            {hasImage && imagePosition === 'left' && (
+                <div class="relative aspect-[4/3] overflow-hidden rounded-[var(--border-radius-base)] shadow-lg">
+                    <img 
+                        src={image.src} 
+                        alt={image.alt || headline}
+                        class="absolute inset-0 w-full h-full object-cover"
+                        loading="lazy"
+                    />
+                </div>
+            )}
 
             {/* Content Side */}
             <div class:list={[textColor]}>
                 {eyebrow && <Eyebrow text={eyebrow} background={background} />}
-                <h2 class={textColor} data-aos="fade-up">{headline}</h2>
-                {
-                    subheadline && (
-                        <h3 class:list={['mt-4 text-h5', textColor]} data-aos="fade-up">
-                            {subheadline}
-                        </h3>
-                    )
-                }
-                {
-                    description && (
-                        <p class:list={['mt-6 text-base opacity-90', textColor]} data-aos="fade-up">
-                            {description}
-                        </p>
-                    )
-                }
+                <h2 class={textColor}>{headline}</h2>
+                {subheadline && (
+                    <h3 class:list={['mt-4 text-h5', textColor]}>
+                        {subheadline}
+                    </h3>
+                )}
+                {description && (
+                    <p class:list={['mt-6 text-base opacity-90', textColor]}>
+                        {description}
+                    </p>
+                )}
 
-                {
-                    buttons.length > 0 && (
-                        <div class="flex flex-wrap gap-4 mt-8" data-aos="fade-up">
-                            {buttons.map((button) => (
-                                <Button
-                                    href={button.link}
-                                    target={button.target || '_self'}
-                                    variant={button.variant || 'primary'}
-                                >
-                                    {button.text}
-                                </Button>
-                            ))}
-                        </div>
-                    )
-                }
+                {buttons.length > 0 && (
+                    <div class="flex flex-wrap gap-4 mt-8">
+                        {buttons.map((button) => (
+                            <Button
+                                href={button.link}
+                                target={button.target || '_self'}
+                                variant={button.variant || 'primary'}
+                            >
+                                {button.text}
+                            </Button>
+                        ))}
+                    </div>
+                )}
             </div>
 
-            {/* Image Side (right position) */}
-            {
-                imagePosition === 'right' && (
-                    <div
-                        class="relative aspect-[4/3] overflow-hidden rounded-[var(--border-radius-base)] border border-black"
-                        data-aos="fade-up"
-                        data-aos-delay="100"
-                    >
-                        <Image
-                            {src}
-                            {alt}
-                            width={800}
-                            height={600}
-                            class="w-full h-full object-cover"
-                            quality={80}
-                            format="webp"
-                        />
-                    </div>
-                )
-            }
+            {/* Image Side (right position) - only render if image exists */}
+            {hasImage && imagePosition === 'right' && (
+                <div class="relative aspect-[4/3] overflow-hidden rounded-[var(--border-radius-base)] shadow-lg">
+                    <img 
+                        src={image.src} 
+                        alt={image.alt || headline}
+                        class="absolute inset-0 w-full h-full object-cover"
+                        loading="lazy"
+                    />
+                </div>
+            )}
         </div>
     </div>
 </section>

@@ -1,0 +1,98 @@
+---
+import Layout from '@layouts/Layout.astro';
+import InnerHero from '@components/sections/InnerHero.astro';
+import Eyebrow from '@components/ui/Eyebrow.astro';
+import { bloodBankInfo, donationRequirements, bloodTypes, schedule, contactInfo } from '@data/bloodBank';
+
+const heroContent = {
+    title: 'Banco Municipal de Sangre',
+    description: 'Centro de referencia nacional'
+};
+---
+
+<Layout title="Banco de Sangre | Hospital José María Vargas" description="Banco Municipal de Sangre del Hospital José María Vargas - Centro de referencia nacional">
+    <InnerHero content={heroContent} />
+    
+    <section class="py-base bg-background">
+        <div class="site-container px-4">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="order-2 md:order-1">
+                    <Eyebrow text="SOBRE NOSOTROS" background="base" />
+                    <h2 class="text-h2 mb-4">{bloodBankInfo.name}</h2>
+                    <p class="text-body-base mb-6">{bloodBankInfo.description}</p>
+                    <div class="bg-primary/10 p-6 rounded-lg border border-primary/20">
+                        <h3 class="text-h4 mb-2">Misión</h3>
+                        <p class="text-body-base">{bloodBankInfo.mission}</p>
+                    </div>
+                </div>
+                
+                <div class="order-1 md:order-2 relative rounded-lg overflow-hidden shadow-lg">
+                    <img 
+                        src="/images/banco-sangre.jpg" 
+                        alt="Banco Municipal de Sangre" 
+                        class="w-full h-64 md:h-full object-cover"
+                        loading="lazy"
+                    />
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                        <div class="text-white">
+                            <h3 class="text-h4 mb-2">Horario de Donación</h3>
+                            <p class="text-sm opacity-90">Lunes a Viernes: {schedule.donation.hours}</p>
+                            <p class="text-sm opacity-90">Sábados: 7:00 AM - 9:00 AM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-base bg-background-light">
+        <div class="site-container px-4">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h2 class="text-h3 mb-4">Requisitos para Donar</h2>
+                    <ul class="space-y-3">
+                        {donationRequirements.map(req => (
+                            <li class="flex items-start gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-1 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                                <span class="text-body-base">{req.text}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                
+                <div>
+                    <h2 class="text-h3 mb-6">Grupos Sanguíneos</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        {bloodTypes.map(bt => (
+                            <div class="p-4 rounded-lg border border-black bg-background">
+                                <span class="text-h4 text-primary font-bold">{bt.type}</span>
+                                <p class="text-sm text-body-base mt-1">Compatible con:</p>
+                                <p class="text-sm font-medium">{bt.compatible}</p>
+                            </div>
+                        ))}
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-secondary/10 rounded-lg border border-secondary/20">
+                        <h3 class="text-h5 mb-2">¿No conoces tu tipo de sangre?</h3>
+                        <p class="text-body-base text-sm">
+                            Puedes donating sangue y te informaremos tu tipo de sangre de forma confidencial.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-base bg-primary">
+        <div class="site-container px-4 text-center">
+            <h2 class="text-h3 text-white mb-4">¡Donar Sangre Salva Vidas!</h2>
+            <p class="text-white text-lg mb-6 max-w-2xl mx-auto">
+                Con tu donación puedes ayudar a hasta 4 personas. La sangre no se puede fabricar,
+                solo se puede obtener de personas voluntarias.
+            </p>
+            <a href="/contacto" class="inline-flex items-center justify-center rounded-md px-6 py-3 bg-white text-primary font-medium hover:bg-secondary transition-colors">
+                Contáctanos para más información
+            </a>
+        </div>
+    </section>
+</Layout>

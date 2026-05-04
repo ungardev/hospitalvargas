@@ -1,0 +1,15 @@
+---
+import Layout from "@layouts/Layout.astro"
+import InnerHero from "@components/sections/InnerHero.astro"
+import ContactInfo from "@components/sections/ContactInfo.astro"
+
+const heroContent = {
+    title: "Contacto",
+    description: "Estamos aquí para ayudarle"
+}
+---
+
+<Layout title="Contacto | Hospital José María Vargas" description="Contacto del Hospital José María Vargas">
+    <InnerHero content={heroContent} />
+    <ContactInfo background="base" padding="small" />
+</Layout>

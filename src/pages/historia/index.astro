@@ -1,0 +1,115 @@
+---
+import Layout from '@layouts/Layout.astro';
+import InnerHero from '@components/sections/InnerHero.astro';
+import SplitPanel from '@components/sections/SplitPanel.astro';
+import Stats from '@components/sections/Stats.astro';
+import { historicalTimeline, founderInfo, hospitalStats } from '@data/history';
+
+const heroContent = {
+    title: 'Nuestra Historia',
+    description: '134 años de tradición médica al servicio de Venezuela'
+};
+
+const statsContent = {
+    eyebrow: 'DATOS HISTÓRICOS',
+    stats: [
+        { value: hospitalStats.founded, label: 'Año de Fundación' },
+        { value: hospitalStats.yearsOfHistory, label: 'Años de Historia' },
+        { value: hospitalStats.specialties, label: 'Especialidades' },
+        { value: hospitalStats.postgradPrograms, label: 'Programas de Postgrado' }
+    ]
+};
+---
+
+<Layout title="Historia | Hospital José María Vargas" description="Historia del Hospital José María Vargas desde su fundación en 1891">
+    <InnerHero content={heroContent} />
+    
+    <section class="py-base bg-background">
+        <div class="site-container px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <img 
+                        src="/images/dr-vargas.jpg" 
+                        alt="Dr. José María Vargas" 
+                        class="w-full rounded-lg shadow-lg"
+                        loading="lazy"
+                    />
+                    <div class="absolute -bottom-4 -right-4 bg-primary text-white p-4 rounded-lg shadow-lg">
+                        <span class="text-3xl font-bold">1891</span>
+                        <p class="text-sm">Año de Fundación</p>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="text-h2 mb-4">{founderInfo.name}</h2>
+                    <p class="text-lg text-primary font-medium mb-4">{founderInfo.title}</p>
+                    <p class="text-body-base opacity-90">{founderInfo.bio}</p>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-start mt-16">
+                <div>
+                    <p class="text-body-base mb-4">
+                        El Hospital José María Vargas fue fundado en la ciudad de Caracas el 5 de julio de 1891, 
+                        nombrado así en honor al ilustre médico venezolano del cual lleva su nombre. Haoffered 
+                        más de 134 años de formación académica y funcionamiento continuo al servicio de los venezolanos 
+                        con un personal paramédico y médicos especialistas de renombre.
+                    </p>
+                    <p class="text-body-base">
+                        Este hospital tipo 4 tiene un área de influencia de más de 400 mil habitantes y es centro 
+                        de referencia nacional, atendiendo pacientes de todos los rincones del país. Es el segundo 
+                        hospital más importante del Ministerio del Poder Popular para la Salud (MPPS), después del 
+                        Hospital Universitario de Caracas.
+                    </p>
+                </div>
+                <div class="relative rounded-lg overflow-hidden shadow-lg">
+                    <img 
+                        src="/images/pasillo-hospital.jpg" 
+                        alt="Pasillos del Hospital Vargas" 
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <Stats content={statsContent} background="light" padding="small" />
+
+    <section class="py-base bg-background-light">
+        <div class="site-container px-4">
+            <h2 class="text-h2 text-center mb-8">Línea de Tiempo</h2>
+            
+            <div class="max-w-3xl mx-auto">
+                {historicalTimeline.map((event, index) => (
+                    <div class="relative pl-8 pb-8 border-l-2 border-primary last:border-0">
+                        <div class="absolute -left-[11px] top-0 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
+                            <span class="text-white text-xs">{index + 1}</span>
+                        </div>
+                        <span class="text-primary font-bold text-lg">{event.year}</span>
+                        <h3 class="text-h4 mb-2">{event.title}</h3>
+                        <p class="text-body-base opacity-90">{event.description}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section class="py-base bg-background">
+        <div class="site-container px-4">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-h2 mb-4">Generación Renovadora</h2>
+                <p class="text-body-base mb-8">
+                    En 1895, un grupo de jóvenes médicos liderizados por Luis Razetti y Santos Dominici, 
+                    constituyeron la denominada Generación Renovadora. Bajo la influencia de la Escuela Francesa, 
+                    reformaron profundamente los estudios médicos y el ejercicio de la medicina en Venezuela.
+                </p>
+                <div class="bg-primary/10 p-6 rounded-lg border border-primary/20">
+                    <p class="text-h5 italic">
+                        "Por más de medio siglo, el Hospital mantuvo este papel protagónico en la formación médica 
+                        de Venezuela"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
