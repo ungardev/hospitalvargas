@@ -1,0 +1,39 @@
+---
+interface Props {
+  name: string;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+
+const icons: Record<string, string> = {
+  'heart': 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z',
+  'activity': 'M22 12h-4l-3 9 9 3-3-9h4',
+  'stethoscope': 'M4 4h4v4H4z M6 10v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8 M14 12v4',
+  'brain': 'M12 5a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V19a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-1.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z',
+  'eye': 'M12 5C7 5 3 9 3 12s4 7 9 7 9-4 9-7-4-7-9-7z M12 9v6 M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
+  'ear': 'M6 10a6 6 0 1 0 12 0 6 6 0 0 0-12 0z M12 4v6 M9 7h6',
+  'pill': 'M10.5 20.5l10-10.5-10.5-10.5',
+  'baby': 'M9 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z M15 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z M12 3v4 M6 11a4 4 0 0 1 4-4h4a4 4 0 0 1 0 8H10a4 4 0 0 1-4-4z',
+  'microscope': 'M6 18h8 M3 22h18 M14 22a7 7 0 1 0-12-7 M14 2v4 M10 2v4 M10 6h4',
+  'wind': 'M12 2v20 M8 6c0-2 2-4 4-4s4 2 4 4 M8 12c0-2 2-4 4-4s4 2 4 4 M8 18c0-2 2-4 4-4s4 2 4 4',
+  'smile': 'M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z M8 14s1.5 2 4 2 4-2 4-2 M9 10h.01 M15 10h.01',
+  'plus': 'M12 5v14 M5 12h14',
+  'heart-pulse': 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z M3 12l4 4 7-7 7 7 4-4-7-7-7 7z',
+};
+---
+
+<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  width="24" 
+  height="24" 
+  viewBox="0 0 24 24" 
+  fill="none" 
+  stroke="currentColor" 
+  stroke-width="2" 
+  stroke-linecap="round" 
+  stroke-linejoin="round" 
+  class={className}
+>
+  <path d={icons[name] || icons['heart']} />
+</svg>
