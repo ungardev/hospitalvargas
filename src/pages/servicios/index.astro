@@ -9,13 +9,16 @@ const heroContent = {
     description: '35+ especialidades médicas al servicio de los venezolanos'
 };
 
-const iconPaths: Record<string, string> = {
-  'heart-pulse': '<path d="M19.5 12.572l-7.097 4.27-1.99-2.14L6 11.572l7.097-4.27 1.99 2.14 4.413 1.43zM12 21.5c-4.5-2.5-8-6.5-8-11.5 0-1.87.63-3.55 1.69-4.89C7.17 3.57 9.07 3 11 3c3.87 0 7 3.13 7 7 0 5-3.5 9-8 11.5z"/><path d="M12 21.5c3.87 0 7-3.13 7-7 0-1.87-.63-3.55-1.69-4.89"/><path d="M12 21.5c-3.87 0-7-3.13-7-7"/>',
-  'stethoscope': '<path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/>',
-  'activity': '<path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/><path d="M22 12c0 1.5-1.5 3-3 3s-3-1.5-3-3 1.5-3 3-3 3 1.5 3 3z"/>',
-  'graduation-cap': '<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
-  'flask-conical': '<path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/>',
-  'microscope': '<path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0-12-7"/><path d="M14 2v4"/><path d="M10 2v4"/><path d="M10 6h4"/>',
+const getServiceIcon = (iconName: string): string => {
+  const icons: Record<string, string> = {
+    'heart-pulse': 'M19.5 12.572l-7.097 4.27-1.99-2.14L6 11.572l7.097-4.27 1.99 2.14 4.413 1.43zM12 21.5c-4.5-2.5-8-6.5-8-11.5 0-1.87.63-3.55 1.69-4.89C7.17 3.57 9.07 3 11 3c3.87 0 7 3.13 7 7 0 5-3.5 9-8 11.5z',
+    'stethoscope': 'M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3 M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4 M20 10',
+    'activity': 'M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2',
+    'graduation-cap': 'M22 10v6M2 10l10-5 10 5-10 5z M6 12v5c3 3 9 3 12 0v-5',
+    'flask-conical': 'M10 2v7.31 M14 9.3V1.99 M8.5 2h7 M14 9.3a6.5 6.5 0 1 1-4 0 M5.52 16h12.96',
+    'microscope': 'M6 18h8 M3 22h18 M14 22a7 7 0 1 0-12-7 M14 2v4 M10 2v4 M10 6h4',
+  };
+  return icons[iconName] || icons['activity'];
 };
 
 const groupedServices = serviceCategories.map(cat => ({
@@ -62,7 +65,9 @@ const groupedServices = serviceCategories.map(cat => ({
                         data-category={service.category}
                     >
                         <div class="w-12 h-12 flex items-center justify-center rounded-lg mb-4 bg-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white" set:html={iconPaths[service.iconName] || iconPaths['activity']} />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                                <path d={getServiceIcon(service.iconName)} />
+                            </svg>
                         </div>
                         <h3 class="text-h4 mb-2">{service.name}</h3>
                         <span class="text-sm text-primary font-medium">{service.category}</span>
