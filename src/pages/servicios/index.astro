@@ -12,8 +12,7 @@ const heroContent = {
 const getServiceIcon = (iconName: string): string[] => {
   const icons: Record<string, string[]> = {
     'heart-pulse': [
-      'M19.5 12.572l-7.097 4.27-1.99-2.14L6 11.572l7.097-4.27 1.99 2.14 4.413 1.43z',
-      'M12 21.5c-4.5-2.5-8-6.5-8-11.5 0-1.87.63-3.55 1.69-4.89C7.17 3.57 9.07 3 11 3c3.87 0 7 3.13 7 7 0 5-3.5 9-8 11.5z'
+      'M19.5 12.572l-7.097 4.27-1.99-2.14L6 11.572l7.097-4.27 1.99 2.14 4.413 1.43z'
     ],
     'stethoscope': [
       'M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3',
@@ -35,12 +34,7 @@ const getServiceIcon = (iconName: string): string[] => {
       'M5.52 16h12.96'
     ],
     'microscope': [
-      'M6 18h8',
-      'M3 22h18',
-      'M14 22a7 7 0 1 0-12-7',
-      'M14 2v4',
-      'M10 2v4',
-      'M10 6h4'
+      'M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0z M12 8v4l2 2'
     ],
   };
   return icons[iconName] || icons['activity'];
