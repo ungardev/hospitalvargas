@@ -258,33 +258,33 @@ ESPECIALIDADES = [
 INVERSION = {
     "desarrollo_web": {
         "descripcion": "Desarrollo del sitio web institucional completo",
-        "monto": 8500,
+        "monto": 7500,
         "notas": "Incluye diseño, desarrollo, pruebas y capacitación",
     },
     "dominio_anual": {
         "descripcion": "Dominio hospitalvargas.gob.ve (anual)",
-        "monto": 150,
+        "monto": 100,
         "notas": "Renovación anual",
     },
     "hosting_anual": {
-        "descripcion": "Hosting en Vercel (Enterprise)",
-        "monto": 1200,
-        "notas": "Plan profesional con SSL y CDN",
+        "descripcion": "Hosting en Vercel (Pro)",
+        "monto": 1000,
+        "notas": "Plan profesional con SSL y CDN global",
     },
     "mantenimiento_anual": {
         "descripcion": "Mantenimiento y actualizaciones (anual)",
-        "monto": 2400,
+        "monto": 2000,
         "notas": "Soporte técnico, actualizaciones de seguridad",
     },
     "capacitacion": {
         "descripcion": "Capacitación al personal del hospital",
-        "monto": 800,
+        "monto": 600,
         "notas": "Manual de usuario y sesiones de formación",
     },
 }
 
-INVERSION_TOTAL_DESARROLLO = 8500 + 150 + 1200 + 800  # 10650
-INVERSION_TOTAL_ANUAL = 150 + 1200 + 2400  # 3750
+INVERSION_TOTAL_DESARROLLO = 7500 + 100 + 1000 + 600  # 9200
+INVERSION_TOTAL_ANUAL = 100 + 1000 + 2000  # 3100
 
 # =============================================================================
 # FUNCIONES DE CONSTRUCCIÓN DEL DOCUMENTO
@@ -1104,9 +1104,7 @@ def generar_propuesta():
             "<b>Conclusiones:</b>",
             "• El sitio web propuesto cumplirá con los más altos estándares de rendimiento y accesibilidad",
             f"• La inversión de <b>${INVERSION_TOTAL_DESARROLLO:,.2f}</b> es competitiva para un proyecto de esta envergadura",
-            "• El mantenimiento anual de <b>${:,.2f}</b> asegura la sostenibilidad del proyecto".format(
-                INVERSION_TOTAL_ANUAL
-            ),
+            f"• El mantenimiento anual de <b>${INVERSION_TOTAL_ANUAL:,.2f}</b> asegura la sostenibilidad del proyecto",
             "",
             "<b>Recomendaciones:</b>",
             "1. Aprobar el proyecto para iniciar la fase de planificación",
