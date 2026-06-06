@@ -12,14 +12,27 @@ export interface Stat {
     iconName?: string;
 }
 
-const statIcons: Record<string, string> = {
-    'history': 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
-    'medical': 'M19.5 12.572l-7.097 4.27-1.99-2.14L6 11.572l7.097-4.27 1.99 2.14 4.413 1.43zM12 21.5c-4.5-2.5-8-6.5-8-11.5 0-1.87.63-3.55 1.69-4.89C7.17 3.57 9.07 3 11 3c3.87 0 7 3.13 7 7 0 5-3.5 9-8 11.5z',
-    'graduation': 'M22 10v6M2 10l10-5 10 5-10 5z M6 12v5c3 3 9 3 12 0v-5',
-    'users': 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M23 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75',
-};
+const statIcons: Record<string, string[]> = {
+    'history': [
+      'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
+    ],
+    'medical': [
+      'M19.5 12.572l-7.097 4.27-1.99-2.14L6 11.572l7.097-4.27 1.99 2.14 4.413 1.43z',
+      'M12 21.5c-4.5-2.5-8-6.5-8-11.5 0-1.87.63-3.55 1.69-4.89C7.17 3.57 9.07 3 11 3c3.87 0 7 3.13 7 7 0 5-3.5 9-8 11.5z'
+    ],
+    'graduation': [
+      'M22 10v6M2 10l10-5 10 5-10 5z',
+      'M6 12v5c3 3 9 3 12 0v-5'
+    ],
+    'users': [
+      'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2',
+      'M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z',
+      'M23 21v-2a4 4 0 0 0-3-3.87',
+      'M16 3.13a4 4 0 0 1 0 7.75'
+    ],
+  };
 
-const getStatIcon = (label: string): string => {
+const getStatIcon = (label: string): string[] => {
     const lowerLabel = label.toLowerCase();
     if (lowerLabel.includes('historia') || lowerLabel.includes('año')) return statIcons['history'];
     if (lowerLabel.includes('especialidad') || lowerLabel.includes('programa')) return statIcons['medical'];
@@ -129,7 +142,9 @@ const paddingClass = getPaddingClass({ padding, paddingTop, paddingBottom });
                     <div class="text-center group">
                         <div class:list={["inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 transition-transform duration-300 group-hover:scale-110", background === 'dark' ? 'bg-white/10' : 'bg-primary/10']}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class:list={[textColor]}>
-                                <path d={getStatIcon(stat.label)} />
+                                {getStatIcon(stat.label).map(path => (
+                                    <path d={path} />
+                                ))}
                             </svg>
                         </div>
                         <div class:list={["text-5xl font-bold mb-2 tracking-tight", textColor]}>
