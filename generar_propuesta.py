@@ -258,33 +258,33 @@ ESPECIALIDADES = [
 INVERSION = {
     "desarrollo_web": {
         "descripcion": "Desarrollo del sitio web institucional completo",
-        "monto": 7500,
-        "notas": "Incluye diseño, desarrollo, pruebas y capacitación",
+        "monto": 7000,
+        "notas": "Incluye diseño, desarrollo, pruebas y manuales de usuario",
     },
     "dominio_anual": {
-        "descripcion": "Dominio hospitalvargas.gob.ve (anual)",
-        "monto": 100,
-        "notas": "Renovación anual",
+        "descripcion": "Dominio hospitalvargas.gob.ve (gestión CONATEL)",
+        "monto": 0,
+        "notas": "Dominios .gob.ve gestionados gratuitamente por CONATEL",
     },
     "hosting_anual": {
-        "descripcion": "Hosting en Vercel (Pro)",
-        "monto": 1000,
-        "notas": "Plan profesional con SSL y CDN global",
+        "descripcion": "Alojamiento en servidores del MPPS",
+        "monto": 0,
+        "notas": "Infraestructura nacional - Ley de Infogobierno",
     },
     "mantenimiento_anual": {
         "descripcion": "Mantenimiento y actualizaciones (anual)",
-        "monto": 2000,
-        "notas": "Soporte técnico, actualizaciones de seguridad",
+        "monto": 2400,
+        "notas": "Soporte técnico, actualizaciones de seguridad y contenido",
     },
     "capacitacion": {
         "descripcion": "Capacitación al personal del hospital",
-        "monto": 600,
-        "notas": "Manual de usuario y sesiones de formación",
+        "monto": 0,
+        "notas": "Cortesía del proyecto - Manual de usuario incluido",
     },
 }
 
-INVERSION_TOTAL_DESARROLLO = 7500 + 100 + 1000 + 600  # 9200
-INVERSION_TOTAL_ANUAL = 100 + 1000 + 2000  # 3100
+INVERSION_TOTAL_DESARROLLO = 7000 + 0 + 0 + 0  # 7000
+INVERSION_TOTAL_ANUAL = 0 + 0 + 2400  # 2400
 
 # =============================================================================
 # FUNCIONES DE CONSTRUCCIÓN DEL DOCUMENTO
@@ -656,7 +656,10 @@ def generar_propuesta():
         "    4.2 Stack Tecnológico",
         "    4.3 Características de Rendimiento",
         "    4.4 Seguridad y Disponibilidad",
-        "    4.5 Mapa del Sitio",
+        "    4.5 Portabilidad del Sistema",
+        "    4.6 Mapa del Sitio",
+        "CUMPLIMIENTO LEGAL - LEY DE INFOGOBIERNO",
+        "IMPACTO SOCIAL - REDUCCIÓN DE COLAS",
         "V. IDENTIDAD INSTITUCIONAL",
         "VI. PLAN DE IMPLEMENTACIÓN",
         "    6.1 Fases del Proyecto",
@@ -856,20 +859,102 @@ def generar_propuesta():
     story.append(Spacer(1, 15))
     story.append(Paragraph("4.4 Seguridad y Disponibilidad", style_subseccion))
     seguridad = [
-        "• <b>SSL/TLS:</b> Conexión encriptada HTTPS",
-        "• <b>WAF:</b> Web Application Firewall en Vercel",
-        "• <b>CDN:</b> Protección DDoS integrada",
-        "• <b>Backups:</b> Versionamiento git con commits",
-        "• <b>Monitoreo:</b> Uptime monitoring 24/7",
-        f"• <b>SLA Vercel:</b> 99.9% disponibilidad",
+        "• <b>SSL/TLS:</b> Conexión encriptada HTTPS (obligatorio)",
+        "• <b>Backups:</b> Versionamiento git con commits automáticos",
+        "• <b>Monitoreo:</b> Uptime monitoring 24/7 en servidores del MPPS",
+        "• <b>Infraestructura:</b> Servidores nacionales del Ministerio de Salud",
     ]
     for item in seguridad:
+        story.append(Paragraph(item, style_lista))
+
+    story.append(Spacer(1, 15))
+    story.append(Paragraph("4.5 Portabilidad del Sistema", style_subseccion))
+    portabilidad = [
+        "• <b>Tecnología Astro:</b> Genera HTML/CSS/JS estático puro",
+        "• <b>Sin dependencias:</b> No requiere Node.js en servidor de producción",
+        "• <b>Flexible:</b> Puede alojarse en cualquier servidor web (Apache, Nginx, IIS)",
+        "• <b>Servidores nacionales:</b> Compatible con infraestructura MPPS/CANTV",
+        "• <b>Migración sencilla:</b> Deployment en un solo paso",
+    ]
+    for item in portabilidad:
         story.append(Paragraph(item, style_lista))
 
     story.append(Spacer(1, 15))
     story.append(Paragraph("4.5 Mapa del Sitio", style_subseccion))
     story.append(Spacer(1, 5))
     story.append(crear_tabla_paginas())
+
+    story.append(PageBreak())
+
+    # =============================================================================
+    # CUMPLIMIENTO LEGAL - LEY DE INFOGOBIERNO
+    # =============================================================================
+    crear_seccion(
+        "CUMPLIMIENTO LEGAL - LEY DE INFOGOBIERNO",
+        [
+            "El presente proyecto se alinea con las normativas nacionales de tecnología e información gubernamental:",
+            "",
+            "<b>1. Ley de Infogobierno (2013):</b>",
+            "• Promueve el uso de software libre y estándares abiertos en la administración pública",
+            "• Fomenta la transparencia y acceso a la información ciudadana",
+            "• Las tecnologías seleccionadas (Astro, TypeScript, Tailwind CSS) son software libre",
+            "",
+            "<b>2. Gestión de Dominio .gob.ve:</b>",
+            "• Los dominios institucionales públicos son gestionados por CONATEL",
+            "• El trámite se realizará en coordinación con la Oficina de Tecnología del MPPS",
+            "• Costo de dominio: $0 (gestión institucional gratuita)",
+            "",
+            "<b>3. Infraestructura Nacional:</b>",
+            "• El sitio está diseñado para ser alojado en servidores del Ministerio de Salud",
+            "• Cumple con las directrices de SUSCERTE y CNTI para plataformas gubernamentales",
+            "• Puede ser exportado como HTML/CSS puro para cualquier servidor nacional",
+            "",
+            "<b>4. Aliases y Consideraciones:</b>",
+            "• No se requieren pagos recurrentes a proveedores externos",
+            "• El mantenimiento técnico puede realizarse con personal del área de informática del hospital",
+            "• Se entrega con manuales de administración y contenido",
+        ],
+        story,
+    )
+
+    story.append(PageBreak())
+
+    # =============================================================================
+    # IMPACTO SOCIAL - REDUCCIÓN DE COLAS
+    # =============================================================================
+    crear_seccion(
+        "IMPACTO SOCIAL - REDUCCIÓN DE COLAS",
+        [
+            "Una de las principales ventajas de la implementación del sitio web institucional es la reducción de la congestión física en las instalaciones del hospital:",
+            "",
+            "<b>1. Problema Actual:</b>",
+            "• Familiares y pacientes realizan colas extensas para obtener información básica",
+            "• Consultas sobre requisitos del Banco de Sangre requieren presencia física",
+            "• Horarios de especialistas y disponibilidad no son accesibles remotamente",
+            "• El personal administrativo dedica tiempo excesivo a responder consultas repetitivas",
+            "",
+            "<b>2. Solución Propuesta:</b>",
+            "• El ciudadano puede consultar desde su teléfono o computadora:",
+            "   - Requisitos para donación de sangre",
+            "   - Horarios de consulta de especialidades",
+            "   - Ubicación de servicios dentro del hospital",
+            "   - Programas de pregrado y postgrado disponibles",
+            "   - Estadísticas de gestión hospitalaria",
+            "",
+            "<b>3. Beneficios Cuantificables:</b>",
+            "• Reducción estimada del 30% en consultas presenciales por información",
+            "• Ahorro de tiempo para familiares en sectores populares (Catia, Petare, Caracas Este)",
+            "• Mejora en la eficiencia operativa del personal administrativo",
+            "• Disponibilidad de información 24/7 durante todo el año",
+            "",
+            "<b>4. Impacto en Poblaciones Vulnerables:</b>",
+            "• Personas de la tercera edad evitarán desplazamientos innecesarios",
+            "• Familias de sectores populares con acceso limitado a transporte",
+            "• Madres con niños pequeños que pueden consultar desde casa",
+            "• Pacientes con enfermedades crónicas que requieren seguimiento constante",
+        ],
+        story,
+    )
 
     story.append(PageBreak())
 
