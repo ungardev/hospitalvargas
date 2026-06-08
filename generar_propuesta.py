@@ -177,7 +177,7 @@ AUTORIDADES = {
 # INFORMACIÓN DEL HOSPITAL
 HOSPITAL_INFO = {
     "nombre": "Hospital Vargas de Caracas",
-    "nombre_completo": "Hospital Vargas de Caracas de Caracas",
+    "nombre_completo": "Hospital Vargas de Caracas",
     "fundacion": "5 de julio de 1891",
     "annos_historia": "134",
     "categoria": "Hospital Tipo 4",
@@ -187,6 +187,15 @@ HOSPITAL_INFO = {
     "area_influencia": "400 mil habitantes",
     "especialidades": "35+",
     "programas_postgrado": "132",
+}
+
+# INFORMACIÓN DEL DESARROLLADOR
+DESARROLLADOR = {
+    "nombre": "Ungar Villamizar Mirabal",
+    "cedula": "25.575.601",
+    "telefono": "+58 4241898413",
+    "email": "ungardev@outlook.com",
+    "rif": "V255756016",
 }
 
 # STACK TECNOLÓGICO
@@ -612,7 +621,6 @@ def generar_propuesta():
 
     info_proyecto = f"""
     <b>Fecha:</b> {datetime.now().strftime("%d de %B de %Y")}<br/>
-    <b>Elaborado por:</b> Equipo de Desarrollo Web<br/>
     <b>Dirigido a:</b> Junta Directiva del Hospital Vargas y Ministerio del Poder Popular para la Salud
     """
     story.append(
@@ -629,10 +637,72 @@ def generar_propuesta():
         )
     )
 
+    story.append(Spacer(1, 30))
+
+    # Datos del desarrollador
+    story.append(
+        Paragraph(
+            "EL DESARROLLADOR/EJECUTOR DEL PROYECTO",
+            ParagraphStyle(
+                "DesarrolladorTitulo",
+                parent=styles["Normal"],
+                fontSize=12,
+                textColor=AZUL_INSTITUCIONAL,
+                alignment=TA_CENTER,
+                fontName="Helvetica-Bold",
+                spaceAfter=10,
+            ),
+        )
+    )
+
+    datos_dev = f"""
+    <b>Nombre:</b> {DESARROLLADOR["nombre"]}<br/>
+    <b>C.I.:</b> {DESARROLLADOR["cedula"]}<br/>
+    <b>Teléfono:</b> {DESARROLLADOR["telefono"]}<br/>
+    <b>Email:</b> {DESARROLLADOR["email"]}<br/>
+    <b>RIF:</b> {DESARROLLADOR["rif"]}
+    """
+    story.append(
+        Paragraph(
+            datos_dev,
+            ParagraphStyle(
+                "DatosDev",
+                parent=styles["Normal"],
+                fontSize=11,
+                textColor=GRIS_OSCURO,
+                alignment=TA_CENTER,
+                leading=16,
+            ),
+        )
+    )
+
     story.append(Spacer(1, 60))
 
-    # Tabla de autoridades
+    story.append(PageBreak())
+
+    # =============================================================================
+    # PÁGINA 2 - AUTORIDADES
+    # =============================================================================
+    story.append(Spacer(1, 40))
+    story.append(Paragraph("AUTORIDADES INSTITUCIONALES", style_titulo_principal))
+    story.append(HRFlowable(width="100%", thickness=2, color=AZUL_INSTITUCIONAL))
+    story.append(Spacer(1, 20))
     story.append(crear_tabla_autoridades())
+
+    story.append(PageBreak())
+    story.append(
+        Paragraph(
+            info_proyecto,
+            ParagraphStyle(
+                "InfoProyecto",
+                parent=styles["Normal"],
+                fontSize=11,
+                textColor=GRIS_OSCURO,
+                alignment=TA_CENTER,
+                leading=16,
+            ),
+        )
+    )
 
     story.append(PageBreak())
 
@@ -694,11 +764,11 @@ def generar_propuesta():
             "académicos y统计数据 de gestión hospitalaria.",
             "",
             "<b>Puntos clave:</b>",
-            "• Sitio web con 10 páginas de contenido institucional completo",
-            "• Tiempo de carga menor a 2 segundos",
-            "• Arquitectura de seguridad robusta con SSL y CDN global",
-            f"• Inversión total de desarrollo: <b>${INVERSION_TOTAL_DESARROLLO:,.2f}</b>",
-            f"• Costo anual de mantenimiento: <b>${INVERSION_TOTAL_ANUAL:,.2f}</b>",
+            "- Sitio web con 10 páginas de contenido institucional completo",
+            "- Tiempo de carga menor a 2 segundos",
+            "- Arquitectura de seguridad robusta con SSL y CDN global",
+            f"- Inversión total de desarrollo: <b>${INVERSION_TOTAL_DESARROLLO:,.2f}</b>",
+            f"- Costo anual de mantenimiento: <b>${INVERSION_TOTAL_ANUAL:,.2f}</b>",
         ],
         story,
     )
@@ -765,7 +835,7 @@ def generar_propuesta():
         "Cumplir con estándares de accesibilidad web",
     ]
     for obj in objetivos:
-        story.append(Paragraph(f"• {obj}", style_lista))
+        story.append(Paragraph(f"- {obj}", style_lista))
 
     story.append(Spacer(1, 15))
     story.append(Paragraph("3.2 Alcance", style_subseccion))
@@ -786,9 +856,9 @@ def generar_propuesta():
         "Capacitación al personal del hospital",
     ]
     for item in alcance:
-        story.append(Paragraph(f"• {item}", style_lista))
+        story.append(Paragraph(f"- {item}", style_lista))
 
-    story.append(Spacer(1, 15))
+    story.append(PageBreak())
     story.append(Paragraph("3.3 Beneficios Esperados", style_subseccion))
     beneficios = [
         (
@@ -808,7 +878,7 @@ def generar_propuesta():
         ("Comunicación", "Canal oficial para noticias y alertas epidemiológicas"),
     ]
     for benef, desc in beneficios:
-        story.append(Paragraph(f"• <b>{benef}:</b> {desc}", style_lista))
+        story.append(Paragraph(f"- <b>{benef}:</b> {desc}", style_lista))
 
     story.append(PageBreak())
 
@@ -828,11 +898,11 @@ def generar_propuesta():
     story.append(Spacer(1, 10))
     story.append(Paragraph("<b>Diagrama de Arquitectura:</b>", style_cuerpo))
     arch = [
-        "• Navegador → CDN Vercel → Archivos estáticos (HTML/CSS/JS)",
-        "• Sin servidor de aplicaciones",
-        "• Sin base de datos",
-        "• Generación en build time",
-        "• Despliegue global automático",
+        "- Navegador → CDN Vercel → Archivos estáticos (HTML/CSS/JS)",
+        "- Sin servidor de aplicaciones",
+        "- Sin base de datos",
+        "- Generación en build time",
+        "- Despliegue global automático",
     ]
     for item in arch:
         story.append(Paragraph(item, style_lista))
@@ -845,13 +915,13 @@ def generar_propuesta():
     story.append(Spacer(1, 15))
     story.append(Paragraph("4.3 Características de Rendimiento", style_subseccion))
     rendimiento = [
-        f"• <b>Tiempo de carga:</b> < 2 segundos",
-        f"• <b>Solicitudes HTTP:</b> < 20 por página",
-        "• <b>Build estático:</b> HTML pre-generado",
-        "• <b>Sin JavaScript del cliente:</b> Rendering en servidor",
-        "• <b>CDN Global:</b> Archivos distribuidos mundialment",
-        "• <b>Compresión Gzip:</b> Activada por defecto",
-        "• <b>SSL/TLS:</b> HTTPS obligatorio",
+        f"- <b>Tiempo de carga:</b> < 2 segundos",
+        f"- <b>Solicitudes HTTP:</b> < 20 por página",
+        "- <b>Build estático:</b> HTML pre-generado",
+        "- <b>Sin JavaScript del cliente:</b> Rendering en servidor",
+        "- <b>CDN Global:</b> Archivos distribuidos mundialment",
+        "- <b>Compresión Gzip:</b> Activada por defecto",
+        "- <b>SSL/TLS:</b> HTTPS obligatorio",
     ]
     for item in rendimiento:
         story.append(Paragraph(item, style_lista))
@@ -859,10 +929,10 @@ def generar_propuesta():
     story.append(Spacer(1, 15))
     story.append(Paragraph("4.4 Seguridad y Disponibilidad", style_subseccion))
     seguridad = [
-        "• <b>SSL/TLS:</b> Conexión encriptada HTTPS (obligatorio)",
-        "• <b>Backups:</b> Versionamiento git con commits automáticos",
-        "• <b>Monitoreo:</b> Uptime monitoring 24/7 en servidores del MPPS",
-        "• <b>Infraestructura:</b> Servidores nacionales del Ministerio de Salud",
+        "- <b>SSL/TLS:</b> Conexión encriptada HTTPS (obligatorio)",
+        "- <b>Backups:</b> Versionamiento git con commits automáticos",
+        "- <b>Monitoreo:</b> Uptime monitoring 24/7 en servidores del MPPS",
+        "- <b>Infraestructura:</b> Servidores nacionales del Ministerio de Salud",
     ]
     for item in seguridad:
         story.append(Paragraph(item, style_lista))
@@ -870,11 +940,11 @@ def generar_propuesta():
     story.append(Spacer(1, 15))
     story.append(Paragraph("4.5 Portabilidad del Sistema", style_subseccion))
     portabilidad = [
-        "• <b>Tecnología Astro:</b> Genera HTML/CSS/JS estático puro",
-        "• <b>Sin dependencias:</b> No requiere Node.js en servidor de producción",
-        "• <b>Flexible:</b> Puede alojarse en cualquier servidor web (Apache, Nginx, IIS)",
-        "• <b>Servidores nacionales:</b> Compatible con infraestructura MPPS/CANTV",
-        "• <b>Migración sencilla:</b> Deployment en un solo paso",
+        "- <b>Tecnología Astro:</b> Genera HTML/CSS/JS estático puro",
+        "- <b>Sin dependencias:</b> No requiere Node.js en servidor de producción",
+        "- <b>Flexible:</b> Puede alojarse en cualquier servidor web (Apache, Nginx, IIS)",
+        "- <b>Servidores nacionales:</b> Compatible con infraestructura MPPS/CANTV",
+        "- <b>Migración sencilla:</b> Deployment en un solo paso",
     ]
     for item in portabilidad:
         story.append(Paragraph(item, style_lista))
@@ -895,24 +965,24 @@ def generar_propuesta():
             "El presente proyecto se alinea con las normativas nacionales de tecnología e información gubernamental:",
             "",
             "<b>1. Ley de Infogobierno (2013):</b>",
-            "• Promueve el uso de software libre y estándares abiertos en la administración pública",
-            "• Fomenta la transparencia y acceso a la información ciudadana",
-            "• Las tecnologías seleccionadas (Astro, TypeScript, Tailwind CSS) son software libre",
+            "- Promueve el uso de software libre y estándares abiertos en la administración pública",
+            "- Fomenta la transparencia y acceso a la información ciudadana",
+            "- Las tecnologías seleccionadas (Astro, TypeScript, Tailwind CSS) son software libre",
             "",
             "<b>2. Gestión de Dominio .gob.ve:</b>",
-            "• Los dominios institucionales públicos son gestionados por CONATEL",
-            "• El trámite se realizará en coordinación con la Oficina de Tecnología del MPPS",
-            "• Costo de dominio: $0 (gestión institucional gratuita)",
+            "- Los dominios institucionales públicos son gestionados por CONATEL",
+            "- El trámite se realizará en coordinación con la Oficina de Tecnología del MPPS",
+            "- Costo de dominio: $0 (gestión institucional gratuita)",
             "",
             "<b>3. Infraestructura Nacional:</b>",
-            "• El sitio está diseñado para ser alojado en servidores del Ministerio de Salud",
-            "• Cumple con las directrices de SUSCERTE y CNTI para plataformas gubernamentales",
-            "• Puede ser exportado como HTML/CSS puro para cualquier servidor nacional",
+            "- El sitio está diseñado para ser alojado en servidores del Ministerio de Salud",
+            "- Cumple con las directrices de SUSCERTE y CNTI para plataformas gubernamentales",
+            "- Puede ser exportado como HTML/CSS puro para cualquier servidor nacional",
             "",
             "<b>4. Aliases y Consideraciones:</b>",
-            "• No se requieren pagos recurrentes a proveedores externos",
-            "• El mantenimiento técnico puede realizarse con personal del área de informática del hospital",
-            "• Se entrega con manuales de administración y contenido",
+            "- No se requieren pagos recurrentes a proveedores externos",
+            "- El mantenimiento técnico puede realizarse con personal del área de informática del hospital",
+            "- Se entrega con manuales de administración y contenido",
         ],
         story,
     )
@@ -928,13 +998,13 @@ def generar_propuesta():
             "Una de las principales ventajas de la implementación del sitio web institucional es la reducción de la congestión física en las instalaciones del hospital:",
             "",
             "<b>1. Problema Actual:</b>",
-            "• Familiares y pacientes realizan colas extensas para obtener información básica",
-            "• Consultas sobre requisitos del Banco de Sangre requieren presencia física",
-            "• Horarios de especialistas y disponibilidad no son accesibles remotamente",
-            "• El personal administrativo dedica tiempo excesivo a responder consultas repetitivas",
+            "- Familiares y pacientes realizan colas extensas para obtener información básica",
+            "- Consultas sobre requisitos del Banco de Sangre requieren presencia física",
+            "- Horarios de especialistas y disponibilidad no son accesibles remotamente",
+            "- El personal administrativo dedica tiempo excesivo a responder consultas repetitivas",
             "",
             "<b>2. Solución Propuesta:</b>",
-            "• El ciudadano puede consultar desde su teléfono o computadora:",
+            "- El ciudadano puede consultar desde su teléfono o computadora:",
             "   - Requisitos para donación de sangre",
             "   - Horarios de consulta de especialidades",
             "   - Ubicación de servicios dentro del hospital",
@@ -942,16 +1012,16 @@ def generar_propuesta():
             "   - Estadísticas de gestión hospitalaria",
             "",
             "<b>3. Beneficios Cuantificables:</b>",
-            "• Reducción estimada del 30% en consultas presenciales por información",
-            "• Ahorro de tiempo para familiares en sectores populares (Catia, Petare, Caracas Este)",
-            "• Mejora en la eficiencia operativa del personal administrativo",
-            "• Disponibilidad de información 24/7 durante todo el año",
+            "- Reducción estimada del 30% en consultas presenciales por información",
+            "- Ahorro de tiempo para familiares en sectores populares (Catia, Petare, Caracas Este)",
+            "- Mejora en la eficiencia operativa del personal administrativo",
+            "- Disponibilidad de información 24/7 durante todo el año",
             "",
             "<b>4. Impacto en Poblaciones Vulnerables:</b>",
-            "• Personas de la tercera edad evitarán desplazamientos innecesarios",
-            "• Familias de sectores populares con acceso limitado a transporte",
-            "• Madres con niños pequeños que pueden consultar desde casa",
-            "• Pacientes con enfermedades crónicas que requieren seguimiento constante",
+            "- Personas de la tercera edad evitarán desplazamientos innecesarios",
+            "- Familias de sectores populares con acceso limitado a transporte",
+            "- Madres con niños pequeños que pueden consultar desde casa",
+            "- Pacientes con enfermedades crónicas que requieren seguimiento constante",
         ],
         story,
     )
@@ -967,26 +1037,26 @@ def generar_propuesta():
             "El diseño del sitio web reflection la identidad institucional del Hospital Vargas de Caracas:",
             "",
             "<b>Paleta de colores:</b>",
-            "• Azul institucional: #1E3A5F (principal)",
-            "• Azul claro: #2C5282 (secundario)",
-            "• Blanco: #FFFFFF (textos sobre fondo oscuro)",
-            "• Dorado: #B8860B (acentos)",
+            "- Azul institucional: #1E3A5F (principal)",
+            "- Azul claro: #2C5282 (secundario)",
+            "- Blanco: #FFFFFF (textos sobre fondo oscuro)",
+            "- Dorado: #B8860B (acentos)",
             "",
             "<b>Tipografía:</b>",
-            "• Títulos: Helvetica Bold / Arial Bold",
-            "• Cuerpo: Helvetica / Arial",
-            "• Lectura optimizada para pantallas",
+            "- Títulos: Helvetica Bold / Arial Bold",
+            "- Cuerpo: Helvetica / Arial",
+            "- Lectura optimizada para pantallas",
             "",
             "<b>Logotipo:</b>",
-            "• Uso del logotipo oficial del Hospital Vargas",
-            "• Versión horizontal para header",
-            "• Versión compactada para móvil",
+            "- Uso del logotipo oficial del Hospital Vargas",
+            "- Versión horizontal para header",
+            "- Versión compactada para móvil",
             "",
             "<b>Tono de comunicación:</b>",
-            "• Profesional y formal",
-            "• Accesible para todo público",
-            "• Información clara y concisa",
-            "• Español oficial (español neutro)",
+            "- Profesional y formal",
+            "- Accesible para todo público",
+            "- Información clara y concisa",
+            "- Español oficial (español neutro)",
         ],
         story,
     )
@@ -1046,7 +1116,7 @@ def generar_propuesta():
         story.append(Spacer(1, 8))
         story.append(Paragraph(f"<b>{fase}</b> ({duracion})", style_cuerpo))
         for tarea in tareas:
-            story.append(Paragraph(f"   • {tarea}", style_lista))
+            story.append(Paragraph(f"   - {tarea}", style_lista))
 
     story.append(Spacer(1, 15))
     story.append(Paragraph("6.2 Cronograma", style_subseccion))
@@ -1060,10 +1130,10 @@ def generar_propuesta():
 
     cronograma = [
         ["FASE", "SEMANA 1-2", "SEMANA 3-4", "SEMANA 5-6", "SEMANA 7-8", "SEMANA 9"],
-        ["Planificación", "███", "", "", "", ""],
-        ["Desarrollo", "", "████", "████", "", ""],
-        ["Pruebas", "", "", "", "███", ""],
-        ["Despliegue", "", "", "", "", "███"],
+        ["Planificación", "XXX", "", "", "", ""],
+        ["Desarrollo", "", "XXXX", "XXXX", "", ""],
+        ["Pruebas", "", "", "", "XXX", ""],
+        ["Despliegue", "", "", "", "", "XXX"],
     ]
 
     table = Table(cronograma, colWidths=[100, 70, 70, 70, 70, 70])
@@ -1097,7 +1167,7 @@ def generar_propuesta():
         ("Entregable final", "Sitio web en producción, documentación, capacitación"),
     ]
     for recurso, desc in recursos:
-        story.append(Paragraph(f"• <b>{recurso}:</b> {desc}", style_lista))
+        story.append(Paragraph(f"- <b>{recurso}:</b> {desc}", style_lista))
 
     story.append(PageBreak())
 
@@ -1121,11 +1191,11 @@ def generar_propuesta():
 
     notas_inversion = """
     <b>Notas importantes:</b><br/>
-    • Los costos de desarrollo incluyen diseño, desarrollo, pruebas y capacitación<br/>
-    • El dominio requiere registro oficial a través de los canales correspondientes del MPPS<br/>
-    • El hosting en Vercel incluye SSL, CDN, y soporte técnico<br/>
-    • El mantenimiento anual incluye actualizaciones de seguridad y contenido<br/>
-    • Los costos pueden variar según necesidades específicas del proyecto
+    - Los costos de desarrollo incluyen diseño, desarrollo, pruebas y capacitación<br/>
+    - El dominio requiere registro oficial a través de los canales correspondientes del MPPS<br/>
+    - El hosting en Vercel incluye SSL, CDN, y soporte técnico<br/>
+    - El mantenimiento anual incluye actualizaciones de seguridad y contenido<br/>
+    - Los costos pueden variar según necesidades específicas del proyecto
     """
     story.append(Paragraph(notas_inversion, style_texto))
 
@@ -1133,9 +1203,9 @@ def generar_propuesta():
 
     forma_pago = """
     <b>Forma de pago propuesta:</b><br/>
-    • 40% al inicio del proyecto (aprobación de propuesta)<br/>
-    • 30% al completar fase de desarrollo<br/>
-    • 30% al entregar sitio web en producción
+    - 40% al inicio del proyecto (aprobación de propuesta)<br/>
+    - 30% al completar fase de desarrollo<br/>
+    - 30% al entregar sitio web en producción
     """
     story.append(Paragraph(forma_pago, style_texto))
 
@@ -1150,26 +1220,26 @@ def generar_propuesta():
             "Para garantizar la sostenibilidad del sitio web a largo plazo, se proponen las siguientes acciones:",
             "",
             "<b>1. Mantenimiento Técnico:</b>",
-            "• Actualizaciones de seguridad mensuales",
-            "• Monitoreo de uptime 24/7",
-            "• Respaldo automático de código",
-            "• Actualizaciones del framework Astro",
+            "- Actualizaciones de seguridad mensuales",
+            "- Monitoreo de uptime 24/7",
+            "- Respaldo automático de código",
+            "- Actualizaciones del framework Astro",
             "",
             "<b>2. Actualización de Contenido:</b>",
-            "• El personal del hospital puede actualizar textos y imágenes",
-            "• Se proporcionará manual de usuario detallado",
-            "• Soporte técnico remoto disponible",
+            "- El personal del hospital puede actualizar textos y imágenes",
+            "- Se proporcionará manual de usuario detallado",
+            "- Soporte técnico remoto disponible",
             "",
             "<b>3. Capacitación:</b>",
-            "• Sesión de formación para personal responsable",
-            "• Documentación de procedimientos",
-            "• Videos tutoriales de uso",
+            "- Sesión de formación para personal responsable",
+            "- Documentación de procedimientos",
+            "- Videos tutoriales de uso",
             "",
             "<b>4. Métricas de Éxito:</b>",
-            "• Número de visitantes únicos",
-            "• Tiempo promedio en página",
-            "• Tasa de rebote",
-            "• Posicionamiento en buscadores (SEO)",
+            "- Número de visitantes únicos",
+            "- Tiempo promedio en página",
+            "- Tasa de rebote",
+            "- Posicionamiento en buscadores (SEO)",
         ],
         story,
     )
@@ -1187,9 +1257,9 @@ def generar_propuesta():
             "su importancia y compromiso con la salud pública.",
             "",
             "<b>Conclusiones:</b>",
-            "• El sitio web propuesto cumplirá con los más altos estándares de rendimiento y accesibilidad",
-            f"• La inversión de <b>${INVERSION_TOTAL_DESARROLLO:,.2f}</b> es competitiva para un proyecto de esta envergadura",
-            f"• El mantenimiento anual de <b>${INVERSION_TOTAL_ANUAL:,.2f}</b> asegura la sostenibilidad del proyecto",
+            "- El sitio web propuesto cumplirá con los más altos estándares de rendimiento y accesibilidad",
+            f"- La inversión de <b>${INVERSION_TOTAL_DESARROLLO:,.2f}</b> es competitiva para un proyecto de esta envergadura",
+            f"- El mantenimiento anual de <b>${INVERSION_TOTAL_ANUAL:,.2f}</b> asegura la sostenibilidad del proyecto",
             "",
             "<b>Recomendaciones:</b>",
             "1. Aprobar el proyecto para iniciar la fase de planificación",
@@ -1222,13 +1292,13 @@ def generar_propuesta():
     )
 
     capturas = [
-        "• Página de inicio (Hero, estadísticas, servicios)",
-        "• Página de Historia (línea de tiempo)",
-        "• Página de Servicios (grid de especialidades)",
-        "• Página del Banco de Sangre",
-        "• Página de Postgrado",
-        "• Página de Estadísticas",
-        "• Página de Contacto",
+        "- Página de inicio (Hero, estadísticas, servicios)",
+        "- Página de Historia (línea de tiempo)",
+        "- Página de Servicios (grid de especialidades)",
+        "- Página del Banco de Sangre",
+        "- Página de Postgrado",
+        "- Página de Estadísticas",
+        "- Página de Contacto",
     ]
     for cap in capturas:
         story.append(Paragraph(cap, style_lista))
@@ -1237,12 +1307,12 @@ def generar_propuesta():
     story.append(Paragraph("Anexo B: Datos de Contacto", style_subseccion))
 
     contacto_data = [
-        ["INFORMACIÓN DE CONTACTO"],
-        [f"Hospital: {HOSPITAL_INFO['nombre']}"],
-        [f"Director General: {AUTORIDADES['director_hospital']}"],
-        [f"Dirección: {HOSPITAL_INFO['ubicacion']}"],
-        [f"Teléfono: {HOSPITAL_INFO['telefono']}"],
-        [f"Email: {HOSPITAL_INFO['email']}"],
+        ["DATOS DEL DESARROLLADOR/EJECUTOR"],
+        [f"Nombre: {DESARROLLADOR['nombre']}"],
+        [f"C.I.: {DESARROLLADOR['cedula']}"],
+        [f"Teléfono: {DESARROLLADOR['telefono']}"],
+        [f"Email: {DESARROLLADOR['email']}"],
+        [f"RIF: {DESARROLLADOR['rif']}"],
     ]
 
     table = Table(contacto_data, colWidths=[400])
@@ -1313,7 +1383,7 @@ if __name__ == "__main__":
 
         print("[OK] ReportLab instalado correctamente")
     except ImportError:
-        print("❌ ReportLab no está instalado")
+        print("[ERROR] ReportLab no está instalado")
         print("   Instalar con: pip install reportlab")
         exit(1)
 
