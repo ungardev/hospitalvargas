@@ -1,6 +1,6 @@
-# Hospital José María Vargas
+# Hospital Vargas de Caracas
 
-Sitio web oficial del Hospital José María Vargas, Caracas, Venezuela. Segundo centro hospitalario más importante del país.
+Sitio web oficial del Hospital Vargas de Caracas, Caracas, Venezuela. Segundo centro hospitalario más importante del país.
 
 ## 🚀 Características
 
@@ -51,10 +51,10 @@ Sitio web oficial del Hospital José María Vargas, Caracas, Venezuela. Segundo 
 
 ## 🏥 Sobre el Hospital
 
-El Hospital José María Vargas fue fundado el 5 de julio de 1891 en Caracas. Es un hospital tipo 4 con área de influencia de más de 400 mil habitantes y centro de referencia nacional.
+El Hospital Vargas de Caracas fue fundado el 5 de julio de 1891 en Caracas. Es un hospital tipo 4 con área de influencia de más de 400 mil habitantes y centro de referencia nacional.
 
 **Dirección:** Monte Carmelo a San Pirito, Esq. del Hospital, Parroquia San José, Caracas
 
 ## 📄 Licencia
 
-© 2026 Hospital José María Vargas. Todos los derechos reservados.
+© 2026 Hospital Vargas de Caracas. Todos los derechos reservados.

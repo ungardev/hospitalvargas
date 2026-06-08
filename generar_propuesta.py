@@ -2,7 +2,7 @@
 """
 PROPUESTA DE PROYECTO
 =====================
-Sitio Web Institucional - Hospital José María Vargas
+Sitio Web Institucional - Hospital Vargas de Caracas
 Dirigido a: Junta Directiva del Hospital Vargas y Ministerio del Poder Popular para la Salud
 
 Autor: Desarrollo Web Hospital Vargas
@@ -176,8 +176,8 @@ AUTORIDADES = {
 
 # INFORMACIÓN DEL HOSPITAL
 HOSPITAL_INFO = {
-    "nombre": "Hospital José María Vargas",
-    "nombre_completo": "Hospital José María Vargas de Caracas",
+    "nombre": "Hospital Vargas de Caracas",
+    "nombre_completo": "Hospital Vargas de Caracas de Caracas",
     "fundacion": "5 de julio de 1891",
     "annos_historia": "134",
     "categoria": "Hospital Tipo 4",
@@ -303,7 +303,7 @@ def build_header_footer(canvas, doc):
     canvas.drawString(
         72,
         letter[1] - 32,
-        "PROPUESTA: Sitio Web Institucional - Hospital José María Vargas",
+        "PROPUESTA: Sitio Web Institucional - Hospital Vargas de Caracas",
     )
     canvas.drawRightString(
         letter[0] - 72, letter[1] - 32, datetime.now().strftime("%d/%m/%Y")
@@ -314,7 +314,7 @@ def build_header_footer(canvas, doc):
     canvas.rect(0, 0, letter[0], 40, fill=1)
     canvas.setFillColor(BLANCO)
     canvas.setFont("Helvetica", 9)
-    canvas.drawString(72, 15, "Hospital José María Vargas | Caracas, Venezuela")
+    canvas.drawString(72, 15, "Hospital Vargas de Caracas | Caracas, Venezuela")
     canvas.drawRightString(letter[0] - 72, 15, f"Página {doc.page}")
 
     canvas.restoreState()
@@ -592,7 +592,7 @@ def generar_propuesta():
         Paragraph("Ministerio del Poder Popular para la Salud", style_nombre_autoridad)
     )
     story.append(Spacer(1, 10))
-    story.append(Paragraph("Hospital José María Vargas", style_nombre_autoridad))
+    story.append(Paragraph("Hospital Vargas de Caracas", style_nombre_autoridad))
     story.append(Spacer(1, 40))
 
     # Título principal
@@ -682,10 +682,10 @@ def generar_propuesta():
     crear_seccion(
         "I. RESUMEN EJECUTIVO",
         [
-            f"El presente documento propone el desarrollo e implementación del <b>Sitio Web Institucional del Hospital José María Vargas</b>, "
+            f"El presente documento propone el desarrollo e implementación del <b>Sitio Web Institucional del Hospital Vargas de Caracas</b>, "
             f"como plataforma digital oficial del segundo centro hospitalario más importante de Venezuela.",
             "",
-            f"Fundado el {HOSPITAL_INFO['fundacion']}, el Hospital José María Vargas cuenta con <b>{HOSPITAL_INFO['annos_historia']} años de historia</b> "
+            f"Fundado el {HOSPITAL_INFO['fundacion']}, el Hospital Vargas de Caracas cuenta con <b>{HOSPITAL_INFO['annos_historia']} años de historia</b> "
             f"y atiende a un área de influencia de más de <b>{HOSPITAL_INFO['area_influencia']}</b>. Con <b>{HOSPITAL_INFO['especialidades']} especialidades médicas</b> "
             f"y <b>{HOSPITAL_INFO['programas_postgrado']} programas de postgrado</b>, es referente nacional en formación médica.",
             "",
@@ -745,7 +745,7 @@ def generar_propuesta():
     story.append(Paragraph("<b>Objetivo General:</b>", style_cuerpo))
     story.append(
         Paragraph(
-            "Desarrollar e implementar el sitio web institucional del Hospital José María Vargas como plataforma "
+            "Desarrollar e implementar el sitio web institucional del Hospital Vargas de Caracas como plataforma "
             "digital oficial, que permita a la ciudadanía acceder a información sobre servicios médicos, programas "
             "académicos e institucionales del hospital.",
             style_texto,
@@ -964,7 +964,7 @@ def generar_propuesta():
     crear_seccion(
         "V. IDENTIDAD INSTITUCIONAL",
         [
-            "El diseño del sitio web reflection la identidad institucional del Hospital José María Vargas:",
+            "El diseño del sitio web reflection la identidad institucional del Hospital Vargas de Caracas:",
             "",
             "<b>Paleta de colores:</b>",
             "• Azul institucional: #1E3A5F (principal)",
@@ -1182,7 +1182,7 @@ def generar_propuesta():
     crear_seccion(
         "IX. CONCLUSIONES Y RECOMENDACIONES",
         [
-            f"El Hospital José María Vargas, con sus <b>{HOSPITAL_INFO['annos_historia']} años de historia</b> y su posición "
+            f"El Hospital Vargas de Caracas, con sus <b>{HOSPITAL_INFO['annos_historia']} años de historia</b> y su posición "
             "como segundo centro hospitalario más importante de Venezuela, requiere una presencia digital que refleje "
             "su importancia y compromiso con la salud pública.",
             "",
@@ -1279,7 +1279,7 @@ def generar_propuesta():
     story.append(
         Paragraph(
             "<b>Documento elaborado en junio de 2026</b><br/>"
-            "Hospital José María Vargas | Caracas, Venezuela",
+            "Hospital Vargas de Caracas | Caracas, Venezuela",
             ParagraphStyle(
                 "PieFinal",
                 parent=styles["Normal"],
@@ -1303,7 +1303,7 @@ def generar_propuesta():
 if __name__ == "__main__":
     print("=" * 60)
     print("PROPUESTA DE PROYECTO")
-    print("Sitio Web Institucional - Hospital José María Vargas")
+    print("Sitio Web Institucional - Hospital Vargas de Caracas")
     print("=" * 60)
     print()
 
